@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "layovr",
+    "description": "This project is really great.",
+    "slug": "layovr",
+    "privacy": "public",
+    "sdkVersion": "26.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "facebookScheme": "fb216190855818653",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
