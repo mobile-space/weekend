@@ -42,8 +42,8 @@
   - User should be able to look for food, drinks, cafes, shops and outdoor attractions  
 
 - <b>API's</b>
-  - [Foursquare] (https://developer.foursquare.com/) 
+  - [Foursquare](https://developer.foursquare.com/) 
 
-- [ ] <b>Navigation </b>
+- [x] <b>Navigation </b>
   - [x] Navigation Tree Structure  
   - [x] Build Empty Screens  
