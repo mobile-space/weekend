@@ -32,18 +32,18 @@
 
 ## TODO
 
-- [x] Design
+- [x] <b>Design</b>
   - [x] Wireframes - Brainstorm and draw the skeletal structure of the mobile app.
   - [ ] :star: Sketch Prototypes - Make high fidelity prototypes using Sketch
   - [x] :star: Logo - Make a logo
 
-- [ ] User Stories
-  - [ ] User should be able to plan their layover trip 
-  - [ ] User should be able to look for food, drinks, cafes, shops and outdoor attractions  
+- <b>User Stories</b>
+  - User should be able to plan their layover trip 
+  - User should be able to look for food, drinks, cafes, shops and outdoor attractions  
 
-- [ ] API's 
-  - [ ] [Foursquare] (https://developer.foursquare.com/) 
+- <b>API's</b>
+  - [Foursquare] (https://developer.foursquare.com/) 
 
-- [ ] Navigation
+- [ ] <b>Navigation </b>
   - [x] Navigation Tree Structure  
-  - [x] Build Empty Screens   
+  - [x] Build Empty Screens  
