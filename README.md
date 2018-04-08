@@ -21,13 +21,13 @@
 </h3>
 
 <div style={{display: flex; flex-direction: row}}>
-  <img src="screenshots/assets/wireframes/login.png" width="270" />
-  <img src="screenshots/assets/wireframes/welcome.png" width="270" />
-  <img src="screenshots/assets/wireframes/filter.png" width="270" />
+  <img src="assets/wireframes/login.png" width="270" />
+  <img src="assets/wireframes/welcome.png" width="270" />
+  <img src="assets/wireframes/filter.png" width="270" />
 </div>
 <div style={{display: flex; flex-direction: row}}>
-  <img src="screenshots/assets/wireframes/swipe.png" width="270" />
-  <img src="screenshots/assets/wireframes/travel.png" width="270" />
+  <img src="assets/wireframes/swipe.png" width="270" />
+  <img src="assets/wireframes/travel.png" width="270" />
 </div>
 
 ## TODO
