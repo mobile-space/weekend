@@ -9,11 +9,11 @@
 </h2>
 
 <p align="center">
-  Layover helps you find interesting spots near your airport.
+  Layovr helps you find interesting spots near you.
 </p>
 
 <p align="center">
-    <a href = "#">Demo - Try it on Expo</a>
+    <a href = "https://exp.host/@bhaveshc789/layovr">Demo - Try it on Expo</a>
 </p>
 
 <h3 align="center">
@@ -43,6 +43,8 @@
 
 - <b>API's</b>
   - [Foursquare](https://developer.foursquare.com/) 
+  - Google Map 
+  - [Facebook OAuth](https://developers.facebook.com/docs/facebook-login/web) 
 
 - [x] <b>Navigation </b>
   - [x] Navigation Tree Structure  
