@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 38641,
-  "expoServerNgrokUrl": "https://2n-683.bhaveshc789.layovr.exp.direct",
-  "packagerNgrokUrl": "https://packager.2n-683.bhaveshc789.layovr.exp.direct",
-  "ngrokPid": 38661
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
