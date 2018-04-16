@@ -2,11 +2,17 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "dependencies": {
+    "@shoutem/ui": "^0.23.4",
     "expo": "^26.0.0",
+    "query-string": "^6.0.0",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-sideswipe": "^1.4.1",
     "react-native-snap-carousel": "^3.6.0",
+    "react-native-swiper": "^1.5.13",
+    "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11"
   }
 }
