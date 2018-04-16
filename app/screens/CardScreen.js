@@ -3,29 +3,21 @@ import { StyleSheet, StatusBar, Text, ScrollView, Platform, View, Image, SafeAre
 import { Dimensions } from 'react-native';
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
-
 const { width, height } = Dimensions.get('window');
-
 // const sliderWidth = width;
 // const itemWidth = slideWidth + itemHorizontalMargin * 2;
-
-
 // function wp(percentage) {
 //     const value = (percentage * width) / 100;
 //     return Math.round(value);
 // }
-
 // const slideHeight = height * 0.36;
 // const slideWidth = wp(75);
 // const itemHorizontalMargin = wp(2);
-
 const horizontalMargin = 20;
 const slideWidth = 280;
-
 const sliderWidth = width
 const itemWidth = slideWidth + horizontalMargin * 2;
 const itemHeight = 200;
-
 export default class CardScreen extends React.Component {
     static navigationOptions = {
         header: null
@@ -36,7 +28,6 @@ export default class CardScreen extends React.Component {
             posts: []
         }
     }
-
     async getData() {
         try {
             let response = await fetch('https://api.foursquare.com/v2/venues/search?ll=40.7484,-73.9857&categoryId=4bf58dd8d48988d17f941735&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412', {
@@ -46,7 +37,6 @@ export default class CardScreen extends React.Component {
                 },
             });
             let responseJSON = null
-
             if (response.status === 200) {
                 responseJSON = await response.json();
                 // console.log(responseJSON)
@@ -56,14 +46,12 @@ export default class CardScreen extends React.Component {
             } else {
                 responseJSON = await response.json();
                 const error = responseJSON.message
-
                 // console.log(responseJSON)
             }
         } catch (error) {
             this.setState({ response: error })
         }
     }
-
     // dataList() {
     //     var size = 5;
     //     return this.state.posts.slice(0, size).map((item) => {
@@ -75,11 +63,9 @@ export default class CardScreen extends React.Component {
     //         )
     //     })
     // }
-
     componentDidMount() {
         this.getData()
     }
-
     _renderItem({ item, index }) {
         return (
             <View style={styles.slide} key={item.id}>
@@ -89,8 +75,6 @@ export default class CardScreen extends React.Component {
             </View>
         );
     }
-
-
     render() {
         const { posts } = this.state;
         return (
@@ -106,7 +90,6 @@ export default class CardScreen extends React.Component {
         );
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1
