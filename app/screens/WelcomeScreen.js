@@ -24,10 +24,12 @@ export default class WelcomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.titleText}>
-                    How would you to like to start your day?
-                </Text>
 
+                {/* Plan your Day */}
+
+                <Text style={styles.nameText}>
+                    Hi Girish
+                </Text>
                 <Text style={styles.placeText}>
                     Welcome to San Francisco
                 </Text>
@@ -186,12 +188,60 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+    },
+
+    placeText: {
+        fontSize: 20,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
+    },
+
+    nameText: {
+        fontSize: 40,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
+        marginTop: 30
+    },
+    greetingText: {
+        fontSize: 25,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
+        marginTop: 30
+    },
+
+    buttonContainer: {
         alignItems: 'center',
         justifyContent: 'center'
     },
-    titleText: {
-        fontSize: 30,
-        textAlignVertical: "center",
-        textAlign: "center",
+
+    smallRow: {
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        marginLeft: 30,
+        marginTop: 12
+    },
+
+    smallRow2: {
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        marginLeft: 30,
+        marginTop: -5
+    },
+
+    thumbnailImage: {
+        height: 145,
+        width: 145,
+        marginRight: 10
+    },
+
+    planningButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10
     }
 })
