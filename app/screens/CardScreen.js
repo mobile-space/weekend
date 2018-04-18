@@ -24,13 +24,16 @@ export default class CardScreen extends React.Component {
     };
     constructor(props) {
         super(props);
+        console.log()
         this.state = {
-            posts: []
+            posts: [],
+            category_id: this.props.navigation.state.params.category_id
         }
     }
     async getData() {
+        console.log(this.state.category_id)
         try {
-            let response = await fetch('https://api.foursquare.com/v2/venues/search?ll=40.7484,-73.9857&categoryId=4bf58dd8d48988d17f941735&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412', {
+            let response = await fetch(`https://api.foursquare.com/v2/venues/search?ll=40.7484,-73.9857&categoryId=${this.state.category_id}&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
