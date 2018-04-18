@@ -5,8 +5,11 @@ import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Button, Input } from 'react-native-elements';
 
 const CATEGORIES = {
-    
-} 
+    'theatre': '4bf58dd8d48988d17f941735',
+    'food': '4d4b7105d754a06374d81259',
+    'beach': '4bf58dd8d48988d1e2941735',
+    'museum': '4bf58dd8d48988d181941735'
+}
 
 export default class WelcomeScreen extends React.Component {
     static navigationOptions = {
@@ -73,13 +76,15 @@ export default class WelcomeScreen extends React.Component {
                 </View> */}
 
                 <View style={styles.smallRow}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Card', {category_id: CATEGORIES["theatre"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/theatre.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Card', { category_id: CATEGORIES["food"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/food.png')}
@@ -87,13 +92,15 @@ export default class WelcomeScreen extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.smallRow2}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Card', { category_id: CATEGORIES["beach"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/beach.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Card', { category_id: CATEGORIES["museum"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/museum.png')}
