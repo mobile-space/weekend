@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard } from
 import { LinearGradient } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Button, Input } from 'react-native-elements';
+
+const CATEGORIES = {
+    
+} 
+
 export default class WelcomeScreen extends React.Component {
     static navigationOptions = {
         header: null
