@@ -25,11 +25,34 @@ export default class LoginScreen extends React.Component {
         };
     }
 
-    fbLogIn = async () => {
-        const { type } = await Expo.Facebook.logInWithReadPermissionsAsync('376209866188920', {
+    // fbLogIn = async () => {
+    //     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('376209866188920', {
+    //         permissions: ['public_profile'],
+    //     });
+    //     if (type === 'success') {
+    //         const response = await fetch(
+    //             `https://graph.facebook.com/me?access_token=${token}`
+    //         );
+    //         const userInfo = await response.json();
+    //         Keyboard.dismiss();
+    //         const { navigate } = this.props.navigation;
+    //         navigate('WelcomeDetail');
+    //     }
+    // }
+
+    logIn = async () => {
+        const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('376209866188920', {
             permissions: ['public_profile'],
         });
         if (type === 'success') {
+            // Get the user's name using Facebook's Graph API
+            const response = await fetch(
+                `https://graph.facebook.com/me?access_token=${token}`);
+            Alert.alert(
+                'Logged in!',
+                `Hi ${(await response.json()).name}!`,
+            );
+
             Keyboard.dismiss();
             const { navigate } = this.props.navigation;
             navigate('WelcomeDetail');
@@ -70,7 +93,7 @@ export default class LoginScreen extends React.Component {
                         subtitle: (
                             <Button
                                 buttonStyle={styles.button}
-                                onPress={this.fbLogIn}
+                                onPress={this.logIn}
                                 backgroundColor="#4267B2"
 
                                 title="Login with Facebook"

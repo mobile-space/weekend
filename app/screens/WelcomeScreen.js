@@ -22,6 +22,7 @@ export default class WelcomeScreen extends React.Component {
         };
     }
     render() {
+
         return (
             <View style={styles.container}>
 
