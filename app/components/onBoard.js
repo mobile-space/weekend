@@ -1,4 +1,4 @@
-import { StyleSheet, Image } from 'react-native';
+import { Dimensions, StyleSheet, Image } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { Alert, StatusBar } from 'react-native';
 import React from 'react';
@@ -9,7 +9,20 @@ import NYC from '../../assets/nyc.gif'
 import SEA from '../../assets/sea.gif'
 import LOGO from '../../assets/logo.png'
 
+fbLogIn = async () => {
+    const { type } = await Expo.Facebook.logInWithReadPermissionsAsync('376209866188920', {
+        permissions: ['public_profile'],
+    });
+    if (type === 'success') {
+        Keyboard.dismiss();
+
+        const { navigate } = this.props.navigation;
+        navigate('WelcomeDetail');
+    }
+}
+
 const OnBoard = ({ navigation }) => (
+
     <Onboarding
         onSkip={() => navigation.navigate('WelcomeDetail')}
         onDone={() => navigation.navigate('WelcomeDetail')}
@@ -40,13 +53,11 @@ const OnBoard = ({ navigation }) => (
                 title: "Layovr",
                 subtitle: (
                     <Button
-                        title={'Continue'}
-                        containerViewStyle={{ marginTop: 20 }}
-                        backgroundColor={'#E44A4C'}
-                        borderRadius={5}
-                        textStyle={{ color: 'white' }}
-                        onPress={() => navigation.navigate('WelcomeDetail')}
-
+                        buttonStyle={styles.button}
+                        onPress={this.fbLogIn}
+                        backgroundColor="#4267B2"
+                       
+                        title="Login with Facebook"
                     />
                 ),
                 backgroundColor: 'white',
@@ -63,6 +74,10 @@ const styles = StyleSheet.create({
         width: 350,
         height: 350,
     },
+    button: {
+        marginTop: 18,
+        width: Dimensions.get('window').width * 0.65,
+      },
 });
 
 export default OnBoard;

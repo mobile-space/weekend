@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 67919,
+  "expoServerNgrokUrl": "https://e3-rbx.girishrawat.layovr.exp.direct",
+  "packagerNgrokUrl": "https://packager.e3-rbx.girishrawat.layovr.exp.direct",
+  "ngrokPid": 68119
 }

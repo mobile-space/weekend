@@ -30,6 +30,7 @@ const CATEGORIES = {
     ]
 }
 
+
 export default class WelcomeScreen extends React.Component {
     static navigationOptions = {
         header: null
@@ -38,16 +39,18 @@ export default class WelcomeScreen extends React.Component {
         super(props);
         this.state = {
             screen: 'null',
+            userName: this.props.navigation.state.params && this.props.navigation.state.params.userName,
         };
     }
     render() {
+        console.log(this.props.navigation.state.params && this.props.navigation.state.params.userName);
         return (
             <View style={styles.container}>
 
                 {/* Plan your Day */}
 
                 <Text style={styles.nameText}>
-                    Hi Girish
+                    Hi {this.state.userName}
                 </Text>
                 <Text style={styles.placeText}>
                     Welcome to San Francisco
