@@ -5,10 +5,29 @@ import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Button, Input } from 'react-native-elements';
 
 const CATEGORIES = {
-    'theatre': '4bf58dd8d48988d17f941735',
-    'food': '4d4b7105d754a06374d81259',
-    'beach': '4bf58dd8d48988d1e2941735',
-    'museum': '4bf58dd8d48988d181941735'
+    'food': [
+        { name: 'hotpot', category_id: '52af0bd33cf9994f4e043bdd'},
+        { name: 'sushi', category_id: '4bf58dd8d48988d1d2941735'},
+        { name: 'pancakes', category_id: '4bf58dd8d48988d143941735'},
+        { name: 'burger', category_id: '4bf58dd8d48988d16c941735'},
+        { name: 'pizza', category_id: '4bf58dd8d48988d1ca941735'}
+    ],
+    'beach' : [
+        { name: 'nudist', category_id: '52e81612bcbc57f1066b7a30'},
+        { name: 'surf', category_id: '4bf58dd8d48988d1e3941735'}
+    ],
+    'theatre': [
+        { name: 'drive-in', category_id: '56aa371be4b08b9a8d5734de'},
+        { name: 'indie', category_id: '4bf58dd8d48988d17e941735'},
+        { name: 'multiplex', category_id: '4bf58dd8d48988d180941735'}
+    ],
+    'museum': [
+        { name: 'art', category_id: '4bf58dd8d48988d18f941735'},
+        { name: 'erotic', category_id: '559acbe0498e472f1a53fa23' },
+        { name: 'history', category_id: '4bf58dd8d48988d190941735'},
+        { name: 'Planetarium', category_id: '4bf58dd8d48988d192941735'},
+        { name: 'science', category_id: '4bf58dd8d48988d191941735'}
+    ]
 }
 
 
@@ -80,14 +99,14 @@ export default class WelcomeScreen extends React.Component {
 
                 <View style={styles.smallRow}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Card', {category_id: CATEGORIES["theatre"] })}>
+                        onPress={() => this.props.navigation.navigate('OptionDetail', {category: CATEGORIES["theatre"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/theatre.png')}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Card', { category_id: CATEGORIES["food"] })}>
+                        onPress={() => this.props.navigation.navigate('OptionDetail', { category: CATEGORIES["food"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/food.png')}
@@ -96,14 +115,14 @@ export default class WelcomeScreen extends React.Component {
                 </View>
                 <View style={styles.smallRow2}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Card', { category_id: CATEGORIES["beach"] })}>
+                        onPress={() => this.props.navigation.navigate('OptionDetail', { category: CATEGORIES["beach"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/beach.png')}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Card', { category_id: CATEGORIES["museum"] })}>
+                        onPress={() => this.props.navigation.navigate('OptionDetail', { category: CATEGORIES["museum"] })}>
                         <Image
                             style={styles.thumbnailImage}
                             source={require('../../images/museum.png')}
