@@ -4,6 +4,9 @@ import { LinearGradient } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Header, Button, Input } from 'react-native-elements';
 
+
+const categoryArray = []
+
 class CustomButton extends Component {
     constructor() {
         super();
@@ -12,6 +15,7 @@ class CustomButton extends Component {
             selected: false
         };
     }
+    
 
     componentDidMount() {
         const { selected } = this.props;
@@ -29,9 +33,9 @@ class CustomButton extends Component {
             <Button
                 title={title}
                 textStyle={selected ? { fontSize: 15, color: 'white' } : { fontSize: 15, color: 'blue' }}
-                buttonStyle={selected ? { backgroundColor: 'blue', borderRadius: 100, width: 100, } : { borderWidth: 1, borderColor: 'blue', borderRadius: 100, width: 100, backgroundColor: 'transparent' }}
+                buttonStyle={selected ? { backgroundColor: 'blue', borderRadius: 100, width: 100,  } : { borderWidth: 1, borderColor: 'blue', borderRadius: 100, width: 100, backgroundColor: 'transparent', marginHorizontal: 5, marginVertical: 5 }}
                 containerViewStyle={{ marginRight: -7 }}
-                onPress={() => this.setState({ selected: !selected })}
+                // onPress={() => this.props.navigation.navigate('Card', { category_id: option.category_id })}
             />
         );
     }
@@ -46,9 +50,11 @@ export default class OptionScreen extends React.Component {
     };
     constructor(props) {
         super(props);
+
         this.state = {
-            screen: 'null',
-            posts: []
+            selected: false,
+            options: this.props.navigation.state.params && this.props.navigation.state.params.category,
+            holder: ''
         };
     }
 
@@ -77,57 +83,40 @@ export default class OptionScreen extends React.Component {
         }
     }
 
+    addItemsToArray=()=>{
+        categoryArray.push(this.state.holder.toString())
+
+    }
+
+    renderButtons() {
+        const _data = this.state.options
+        console.log(_data)
+        return _data.map((option, index) => { 
+            return <Button 
+                title={option.name} 
+                key={index}
+                onPress={() => this.props.navigation.navigate('Card', { category_id : option.category_id})}
+             />
+        })
+    }
+
+
+
     render() {
         // const food = this.selectedFood();
+
         return (
             <View style={styles.container}>
                 <Text style={styles.titleText}>
                     What would you like to have for breakfast?
                 </Text>
-                <Button
-                    // onPress={this.onChooseFood.bind(this)}
-                    title="Arab"
-                    titleStyle={{ fontWeight: "700" }}
-                    color="blue"
-                    buttonStyle={{
-                        backgroundColor: "rgba(92, 99,216, 0)",
-                        width: 100,
-                        height: 45,
-                        borderColor: "transparent",
-                        borderWidth: 0,
-                        borderRadius: 5
-                    }}
-                    containerStyle={{ marginTop: 20 }}
-                />
-                <Button
-                    onPress={() => this.props.navigation.navigate('Card')}
-                    title="Go"
-                    titleStyle={{ fontWeight: "700" }}
-                    buttonStyle={{
-                        backgroundColor: "rgba(92, 99,216, 1)",
-                        width: 100,
-                        height: 45,
-                        borderColor: "transparent",
-                        borderWidth: 0,
-                        borderRadius: 5
-                    }}
-                    containerStyle={{ marginTop: 20 }}
-                />
-
                 <View style={styles.buttonRow}>
-                    <CustomButton title="Pancakes" />
-                    <CustomButton title="Ice Cream" />
-                    <CustomButton title="Sushi" />
-                </View>
-
-                <View style={styles.buttonRow}>
-                    <CustomButton title="Pancakes" />
-                    <CustomButton title="Ice Cream" />
+                    {this.state.options && this.renderButtons()}
                 </View>
 
                 <View style={styles.planningButton}>
                     <Button
-                        onPress={() => this.props.navigation.navigate('OptionDetail')}
+                        onPress={() => this.props.navigation.navigate('Card')}
                         title="Go to cards"
                         titleStyle={{ fontWeight: "700" }}
                         containerViewStyle={{ marginTop: 300, alignItems: 'center'}}
@@ -151,11 +140,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     buttonRow: {
-        width: 70,
+        flex: 1,
         flexDirection: 'row',
-        marginLeft: 15,
-        marginTop: 12,
-        height: 50
+        flexWrap: 'wrap',
+        marginTop: 10
     },
     titleText: {
         fontSize: 25,
