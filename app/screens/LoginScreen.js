@@ -48,23 +48,24 @@ export default class LoginScreen extends React.Component {
             // Get the user's name using Facebook's Graph API
             const response = await fetch(
                 `https://graph.facebook.com/me?access_token=${token}`);
+            const user_name = (await response.json()).name;
+            console.log(user_name);
+
             Alert.alert(
                 'Logged in!',
-                `Hi ${(await response.json()).name}!`,
+                `Hi ${user_name}!`,
             );
 
             Keyboard.dismiss();
-            const { navigate } = this.props.navigation;
-            navigate('WelcomeDetail');
+            this.props.navigation.navigate('WelcomeDetail', { userName: user_name });
         }
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <Onboarding
-                onSkip={() => navigate('WelcomeDetail')}
-                onDone={() => navigate('WelcomeDetail')}
+                onSkip={() =>  this.props.navigation.navigate('WelcomeDetail')}
+                onDone={() =>  this.props.navigation.navigate('WelcomeDetail')}
                 pages={[
 
                     {
