@@ -49,12 +49,6 @@ export default class LoginScreen extends React.Component {
             const response = await fetch(
                 `https://graph.facebook.com/me?access_token=${token}`);
             const user_name = (await response.json()).name;
-            console.log(user_name);
-
-            Alert.alert(
-                'Logged in!',
-                `Hi ${user_name}!`,
-            );
 
             Keyboard.dismiss();
             this.props.navigation.navigate('WelcomeDetail', { userName: user_name });
@@ -135,8 +129,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         justifyContent: 'space-around',
     },
-    button: {
-        fontSize: 20,
-        color: 'white',
-    }
 })

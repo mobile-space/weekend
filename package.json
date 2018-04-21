@@ -12,6 +12,7 @@
     "react-native-sideswipe": "^1.4.1",
     "react-native-snap-carousel": "^3.6.0",
     "react-native-swiper": "^1.5.13",
+    "react-native-tag-select": "^2.0.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11"
   }

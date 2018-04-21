@@ -6,27 +6,27 @@ import { Button, Input } from 'react-native-elements';
 
 const CATEGORIES = {
     'food': [
-        { name: 'hotpot', category_id: '52af0bd33cf9994f4e043bdd'},
-        { name: 'sushi', category_id: '4bf58dd8d48988d1d2941735'},
-        { name: 'pancakes', category_id: '4bf58dd8d48988d143941735'},
-        { name: 'burger', category_id: '4bf58dd8d48988d16c941735'},
-        { name: 'pizza', category_id: '4bf58dd8d48988d1ca941735'}
+        { id: 1, label: 'hotpot', category_id: '52af0bd33cf9994f4e043bdd'},
+        { id: 2, label: 'sushi', category_id: '4bf58dd8d48988d1d2941735'},
+        { id: 3, label: 'pancakes', category_id: '4bf58dd8d48988d143941735'},
+        { id: 4, label: 'burger', category_id: '4bf58dd8d48988d16c941735'},
+        { id: 5, label: 'pizza', category_id: '4bf58dd8d48988d1ca941735'}
     ],
     'beach' : [
-        { name: 'nudist', category_id: '52e81612bcbc57f1066b7a30'},
-        { name: 'surf', category_id: '4bf58dd8d48988d1e3941735'}
+        { id: 1, label: 'nudist', category_id: '52e81612bcbc57f1066b7a30'},
+        { id: 2, label: 'surf', category_id: '4bf58dd8d48988d1e3941735'}
     ],
     'theatre': [
-        { name: 'drive-in', category_id: '56aa371be4b08b9a8d5734de'},
-        { name: 'indie', category_id: '4bf58dd8d48988d17e941735'},
-        { name: 'multiplex', category_id: '4bf58dd8d48988d180941735'}
+        { id: 1, label: 'drive-in', category_id: '56aa371be4b08b9a8d5734de'},
+        { id: 2, label: 'indie', category_id: '4bf58dd8d48988d17e941735'},
+        { id: 3, label: 'multiplex', category_id: '4bf58dd8d48988d180941735'}
     ],
     'museum': [
-        { name: 'art', category_id: '4bf58dd8d48988d18f941735'},
-        { name: 'erotic', category_id: '559acbe0498e472f1a53fa23' },
-        { name: 'history', category_id: '4bf58dd8d48988d190941735'},
-        { name: 'Planetarium', category_id: '4bf58dd8d48988d192941735'},
-        { name: 'science', category_id: '4bf58dd8d48988d191941735'}
+        { id: 1, label: 'art', category_id: '4bf58dd8d48988d18f941735'},
+        { id: 2, label: 'erotic', category_id: '559acbe0498e472f1a53fa23' },
+        { id: 3, label: 'history', category_id: '4bf58dd8d48988d190941735'},
+        { id: 4, label: 'Planetarium', category_id: '4bf58dd8d48988d192941735'},
+        { id: 5, label: 'science', category_id: '4bf58dd8d48988d191941735'}
     ]
 }
 
@@ -43,7 +43,6 @@ export default class WelcomeScreen extends React.Component {
         };
     }
     render() {
-        console.log(this.props.navigation.state.params && this.props.navigation.state.params.userName);
         return (
             <View style={styles.container}>
 

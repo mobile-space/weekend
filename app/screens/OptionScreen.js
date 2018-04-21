@@ -4,42 +4,45 @@ import { LinearGradient } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Header, Button, Input } from 'react-native-elements';
 
+import { TagSelect } from 'react-native-tag-select';
 
-const categoryArray = []
 
-class CustomButton extends Component {
-    constructor() {
-        super();
 
-        this.state = {
-            selected: false
-        };
-    }
+// const categoryArray = []
+
+// class CustomButton extends Component {
+//     constructor() {
+//         super();
+
+//         this.state = {
+//             selected: false
+//         };
+//     }
     
 
-    componentDidMount() {
-        const { selected } = this.props;
+//     componentDidMount() {
+//         const { selected } = this.props;
 
-        this.setState({
-            selected
-        });
-    }
+//         this.setState({
+//             selected
+//         });
+//     }
 
-    render() {
-        const { title } = this.props;
-        const { selected } = this.state;
+//     render() {
+//         const { title } = this.props;
+//         const { selected } = this.state;
 
-        return (
-            <Button
-                title={title}
-                textStyle={selected ? { fontSize: 15, color: 'white' } : { fontSize: 15, color: 'blue' }}
-                buttonStyle={selected ? { backgroundColor: 'blue', borderRadius: 100, width: 100,  } : { borderWidth: 1, borderColor: 'blue', borderRadius: 100, width: 100, backgroundColor: 'transparent', marginHorizontal: 5, marginVertical: 5 }}
-                containerViewStyle={{ marginRight: -7 }}
-                // onPress={() => this.props.navigation.navigate('Card', { category_id: option.category_id })}
-            />
-        );
-    }
-}
+//         return (
+//             <Button
+//                 title={title}
+//                 textStyle={selected ? { fontSize: 15, color: 'white' } : { fontSize: 15, color: 'blue' }}
+//                 buttonStyle={selected ? { backgroundColor: 'blue', borderRadius: 100, width: 100,  } : { borderWidth: 1, borderColor: 'blue', borderRadius: 100, width: 100, backgroundColor: 'transparent', marginHorizontal: 5, marginVertical: 5 }}
+//                 containerViewStyle={{ marginRight: -7 }}
+//                 // onPress={() => this.props.navigation.navigate('Card', { category_id: option.category_id })}
+//             />
+//         );
+//     }
+// }
 
 export default class OptionScreen extends React.Component {
     static navigationOptions = {
@@ -54,7 +57,6 @@ export default class OptionScreen extends React.Component {
         this.state = {
             selected: false,
             options: this.props.navigation.state.params && this.props.navigation.state.params.category,
-            holder: ''
         };
     }
 
@@ -83,40 +85,45 @@ export default class OptionScreen extends React.Component {
         }
     }
 
-    addItemsToArray=()=>{
-        categoryArray.push(this.state.holder.toString())
-
-    }
-
-    renderButtons() {
-        const _data = this.state.options
-        console.log(_data)
-        return _data.map((option, index) => { 
-            return <Button 
-                title={option.name} 
-                key={index}
-                onPress={() => this.props.navigation.navigate('Card', { category_id : option.category_id})}
-             />
-        })
-    }
+    // renderButtons() {
+    //     const _data = [this.state.options]
+    //     console.log(_data)
+    //     return _data.map((option, index) => { 
+    //         return <Button 
+    //             title={option.name} 
+    //             key={index}
+    //             onPress={() => this.props.navigation.navigate('Card', { category_id : option.category_id})}
+    //          />
+    //     })
+    // }
 
 
 
     render() {
         // const food = this.selectedFood();
-
+        const data = this.state.options
+        console.log(data)
         return (
             <View style={styles.container}>
                 <Text style={styles.titleText}>
                     What would you like to have for breakfast?
                 </Text>
-                <View style={styles.buttonRow}>
+                {/* <View style={styles.buttonRow}>
                     {this.state.options && this.renderButtons()}
+                </View> */}
+                <View style={styles.buttonRow}>
+                <TagSelect
+                    data={data}
+                    ref={(tag) => {
+                        this.tag = tag;
+                    }}
+                />
                 </View>
+
 
                 <View style={styles.planningButton}>
                     <Button
-                        onPress={() => this.props.navigation.navigate('Card')}
+                        onPress={() => this.props.navigation.navigate('Card', {category_id: this.tag.itemsSelected})}
                         title="Go to cards"
                         titleStyle={{ fontWeight: "700" }}
                         containerViewStyle={{ marginTop: 300, alignItems: 'center'}}
@@ -141,9 +148,8 @@ const styles = StyleSheet.create({
     },
     buttonRow: {
         flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 30
     },
     titleText: {
         fontSize: 25,
