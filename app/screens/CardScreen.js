@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, StatusBar, Text, ScrollView, Platform, View, Image, SafeAreaView, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { TouchableHighlight, StyleSheet, StatusBar, Text, ScrollView, Platform, View, Image, SafeAreaView, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import { Dimensions } from 'react-native';
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
@@ -87,16 +87,72 @@ export default class CardScreen extends React.Component {
         this.mapCategories()
     }
     _renderItem({ item, index }) {
-        const featured_photo = item.venue.featuredPhotos.items[0]
+        var featured_photo_suffix;
+        var featured_photo_prefix;
+        var rating;
+        var stats;
+        var name;
+        var price;
+
+        try {
+            price = item.venue.price.message;
+        } catch (e) {
+        }
+        try {
+            featured_photo_prefix = item.venue.featuredPhotos.items[0].prefix;
+        } catch (e) {
+        }
+        try {
+            featured_photo_suffix = item.venue.featuredPhotos.items[0].suffix;
+        } catch (e) {
+        }
+        try {
+            rating = item.venue.rating;
+        } catch (e) {
+        } 
+        try {
+            stats = item.venue.stats.usersCount;
+        } catch (e) {
+        } 
+        try {
+            name = item.venue.name;
+        } catch (e) {
+        }
+        // const price = item.venue.price.tier;
+
+
+        // if(item.venue.price.tier!='null') {
+        //     const price = item.venue.price.tier;
+        // } 
+
+        // if (typeof (item.venue.price.tier) == 'undefined') {
+        //     console.log("Error bitch!");
+        // } else {
+        //     const stats = item.venue.stats.usersCount;
+        // }
 
         return (
             <View style={styles.slide} key={item.venue.id}>
                 <View style={styles.slide1}>
                     <Image
-                        style={styles.stretch}
-                        source={{ uri: `${featured_photo.prefix}300x300${featured_photo.suffix}` || ''}}
-                />
-                    <Text style={styles.text}>{item.venue.name}</Text>
+                        style={styles.imageRow}
+                        source={{ uri: `${featured_photo_prefix}500x500${featured_photo_suffix}` || '' }}
+                    />
+                    <View style={styles.textContainer}>
+                        <Text style={styles.titleText}>{name}</Text>
+                        <TouchableHighlight
+                            style={styles.ratingContainer}
+
+                            underlayColor='#fff'>
+                            <Text style={styles.ratingText}>{item.venue.rating}</Text>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.peopleText}>{stats} people have visited</Text>
+                        <Text style={styles.peopleText}>{price} </Text>
+
+                    </View>
+
                     {/* <Text style={styles.text}>{item.id}</Text> */}
                 </View>
             </View>
@@ -104,7 +160,7 @@ export default class CardScreen extends React.Component {
     }
     render() {
         const { posts } = this.state;
-        
+
         return (
             <View style={styles.container}>
                 <Carousel
@@ -126,7 +182,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#97CAE5',
     },
     slide: {
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         // other styles for the item container
@@ -139,7 +195,17 @@ const styles = StyleSheet.create({
         width: itemWidth,
         height: 500,
         paddingHorizontal: horizontalMargin,
-        backgroundColor: 'white',
+        backgroundColor: '#fefefe',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    imageRow: {
+        height: itemWidth,
+        width: itemWidth,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+        paddingHorizontal: horizontalMargin,
     },
     slide2: {
         flex: 1,
@@ -153,15 +219,53 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#92BBD9',
     },
-    text: {
-        color: 'red',
+    textContainer: {
+        justifyContent: 'flex-start',
+        marginTop: 10,
+        // backgroundColor: 'black',     
+        height: 90,
+        flex: 1,
+        flexDirection: 'row',
+        width: itemWidth
+    },
+    titleText: {
+        color: 'black',
         fontSize: 30,
-        fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'left',
+        marginLeft: 20,
+        width: 190,
+        flex: 2,
+        // backgroundColor: 'orange',
+    },
+    peopleText: {
+        color: 'black',
+        fontSize: 20,
+        textAlign: 'left',
+        marginLeft: 20,
+        width: 190,
+        flex: 2,
+        // backgroundColor: 'orange',
+    },
+    ratingContainer: {
+
+
+        flex: 1,
+        width: 70,
+        marginRight: 10,
+        height: 70,
+        borderRadius: 500,
+        backgroundColor: '#1D5B98',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     image: {
         width,
         flex: 1
+    },
+    ratingText: {
+        color: '#fefefe',
+        fontSize: 45,
+        fontWeight: 'bold',
     },
     stretch: {
         height: 300,
