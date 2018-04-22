@@ -114,9 +114,6 @@ export default class OptionScreen extends React.Component {
 
         const data = this.getCatergoryData()
 
-        console.log(data)
-        console.log('Display this data above')
-
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.container}>
@@ -171,10 +168,9 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontWeight: '700',
-        fontSize: 32,
+        fontSize: 50,
     },
     textContainer: {
-        alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 20,
     },
