@@ -51,15 +51,15 @@ export default class LoginScreen extends React.Component {
             const user_name = (await response.json()).name;
 
             Keyboard.dismiss();
-            this.props.navigation.navigate('WelcomeDetail', { userName: user_name });
+            this.props.navigation.navigate('Process', { userName: user_name });
         }
     }
 
     render() {
         return (
             <Onboarding
-                onSkip={() =>  this.props.navigation.navigate('WelcomeDetail')}
-                onDone={() =>  this.props.navigation.navigate('WelcomeDetail')}
+                onSkip={() => this.props.navigation.navigate('Process')}
+                onDone={() => this.props.navigation.navigate('Process')}
                 pages={[
 
                     {
@@ -84,7 +84,7 @@ export default class LoginScreen extends React.Component {
                         subtitle: 'SEATTLE',
                     },
                     {
-                        title: "Layovr",
+                        title: "WKNDR",
                         subtitle: (
                             <Button
                                 buttonStyle={styles.button}

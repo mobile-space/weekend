@@ -1,17 +1,26 @@
 import { StackNavigator } from 'react-navigation';
+
+import ProcessStack from './processStack';
+
 import LoginScreen from '../screens/LoginScreen';
-import optionStack from './optionStack';
-import welcomeStack from './welcomeStack';
+import CardScreen from '../screens/CardScreen';
+import ItineraryScreen from '../screens/ItineraryScreen';
 
 export default StackNavigator({
     Intro: {
         screen: LoginScreen
     },
-    Welcome: {
-        screen: welcomeStack
+    Process: {
+        screen: ProcessStack
     },
+    Card: {
+        screen: CardScreen
+    },
+    Itinerary: {
+        screen: ItineraryScreen
+    }
 }, {
-        initialRouteName: 'Intro',
-        mode: 'modal',
-        headerMode: 'none'
-    });
+    initialRouteName: 'Intro',
+    mode: 'modal',
+    headerMode: 'none'
+});

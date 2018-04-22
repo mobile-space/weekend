@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 553,
-  "expoServerNgrokUrl": "https://un-eh4.girishrawat.layovr.exp.direct",
-  "packagerNgrokUrl": "https://packager.un-eh4.girishrawat.layovr.exp.direct",
-  "ngrokPid": 618
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
