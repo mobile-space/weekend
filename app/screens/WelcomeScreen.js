@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard } from
 import { LinearGradient } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Button, Input } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const CATEGORIES = {
     'food': [
@@ -44,7 +45,7 @@ export default class WelcomeScreen extends React.Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
 
                 {/* Plan your Day */}
 
@@ -111,8 +112,6 @@ export default class WelcomeScreen extends React.Component {
                             source={require('../../images/food.png')}
                         />
                     </TouchableOpacity>
-                </View>
-                <View style={styles.smallRow2}>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('OptionDetail', { category: CATEGORIES["beach"] })}>
                         <Image
@@ -201,7 +200,7 @@ export default class WelcomeScreen extends React.Component {
                         containerStyle={{ marginTop: 20 }}
                     />
                 </View> */}
-            </View>
+            </ScrollView>
         );
     }
 }
@@ -240,24 +239,17 @@ const styles = StyleSheet.create({
 
     smallRow: {
         flex: 1,
-        width: '100%',
         flexDirection: 'row',
-        marginLeft: 30,
-        marginTop: 12
+        flexWrap: 'wrap',
+        alignItems:'center',
+        justifyContent:'center',
+        padding: 20,
     },
 
-    smallRow2: {
-        flex: 1,
-        width: '100%',
-        flexDirection: 'row',
-        marginLeft: 30,
-        marginTop: -5
-    },
 
     thumbnailImage: {
         height: 145,
         width: 145,
-        marginRight: 10
     },
 
     planningButton: {

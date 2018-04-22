@@ -3,6 +3,9 @@ import { TouchableHighlight, StyleSheet, StatusBar, Text, ScrollView, Platform, 
 import { Dimensions } from 'react-native';
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
+import {LinearGradient} from 'expo'
+import { Icon } from 'react-native-elements'
+import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
 const { width, height } = Dimensions.get('window');
 // const sliderWidth = width;
 // const itemWidth = slideWidth + itemHorizontalMargin * 2;
@@ -89,11 +92,23 @@ export default class CardScreen extends React.Component {
     _renderItem({ item, index }) {
         var featured_photo_suffix;
         var featured_photo_prefix;
+        var icon_prefix;
+        var icon_suffix;
         var rating;
         var stats;
         var name;
+        var address;
         var price;
+        var hours;
 
+        try {
+            hours = item.venue.hours.isOpen;
+        } catch (e) {
+        }
+        try {
+            address = item.venue.location.address;
+        } catch (e) {
+        }
         try {
             price = item.venue.price.message;
         } catch (e) {
@@ -107,13 +122,21 @@ export default class CardScreen extends React.Component {
         } catch (e) {
         }
         try {
+            icon_prefix = item.venue.categories[0];
+        } catch (e) {
+        }
+        try {
+            icon_suffix = item.venue.categories[0];
+        } catch (e) {
+        }
+        try {
             rating = item.venue.rating;
         } catch (e) {
-        } 
+        }
         try {
             stats = item.venue.stats.usersCount;
         } catch (e) {
-        } 
+        }
         try {
             name = item.venue.name;
         } catch (e) {
@@ -138,21 +161,50 @@ export default class CardScreen extends React.Component {
                         style={styles.imageRow}
                         source={{ uri: `${featured_photo_prefix}500x500${featured_photo_suffix}` || '' }}
                     />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.titleText}>{name}</Text>
-                        <TouchableHighlight
-                            style={styles.ratingContainer}
-
-                            underlayColor='#fff'>
-                            <Text style={styles.ratingText}>{item.venue.rating}</Text>
-                        </TouchableHighlight>
+                    <View style={styles.infoContainer}>
+                        <View style={styles.textContainer}>
+                            <View style={styles.nameContainer}>
+                                <Text style={styles.titleText}>{name}</Text>
+                                <Text style={styles.addressText}>{address}</Text>
+                            </View>
+                            {/* <TouchableHighlight style={styles.iconBackground}
+                                underlayColor='#fff'>
+                                <Image
+                                    style={{ width: 30, height: 30 }}
+                                    source={{ uri: `${icon_prefix.icon.prefix}64${icon_suffix.icon.suffix}` }}
+                                />
+                            </TouchableHighlight> */}
+                            <View style={styles.ratingContainer}>
+                                
+                                <TouchableHighlight style={styles.ratingBackground}
+                                    underlayColor='#fff'>
+                                    <Text style={styles.ratingText}>{item.venue.rating}</Text>
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                        <View style={styles.iconContainer}>
+                            <View style={styles.statsContainer}>
+                                <EvilIcons name="clock" size={30} color="#97D9FB" />
+                            </View>
+                            <View style={styles.statsContainer}>
+                                <MaterialIcons name="person-outline" size={30} color="#FCB5C8" />
+                            </View>
+                            <View style={styles.priceContainer}>
+                                <Text style={styles.priceIconText}>{price === 'Cheap' ? '$' : 'Cheap' || price === 'Moderate' ? '$$' : 'Moderate' || price === 'Expensive' ? '$$$' : 'Expensive'} </Text>
+                            </View>
+                        </View>
+                        <View style={styles.textIconContainer}>
+                            <View style={styles.statsContainer}>
+                                <Text style={styles.statsText}>{hours === true ? 'OPEN' : 'CLOSED'}</Text>
+                            </View>
+                            <View style={styles.statsContainer}>
+                                <Text style={styles.statsText}>{stats}</Text>
+                            </View>
+                            <View style={styles.priceContainer}>
+                                <Text style={styles.priceText}>PRICE</Text>
+                            </View>
+                        </View>
                     </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.peopleText}>{stats} people have visited</Text>
-                        <Text style={styles.peopleText}>{price} </Text>
-
-                    </View>
-
                     {/* <Text style={styles.text}>{item.id}</Text> */}
                 </View>
             </View>
@@ -162,7 +214,9 @@ export default class CardScreen extends React.Component {
         const { posts } = this.state;
 
         return (
-            <View style={styles.container}>
+            <LinearGradient
+                colors={['#72afd3', '#37ecba']}
+                style={styles.container}>
                 <Carousel
                     layout={'default'}
                     ref={(c) => { this._carousel = c; }}
@@ -172,14 +226,13 @@ export default class CardScreen extends React.Component {
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
                 />
-            </View>
+            </LinearGradient>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#97CAE5',
     },
     slide: {
         flex: 1,
@@ -193,49 +246,72 @@ const styles = StyleSheet.create({
     },
     slide1: {
         width: itemWidth,
-        height: 500,
-        paddingHorizontal: horizontalMargin,
+        height: 520,
+        borderRadius: 10,
         backgroundColor: '#fefefe',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+        overflow: 'hidden',
     },
     imageRow: {
+        overflow: 'hidden',
+        backgroundColor: '#C9C9C9',
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
         height: itemWidth,
         width: itemWidth,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'black',
-        paddingHorizontal: horizontalMargin,
     },
-    slide2: {
+    infoContainer: {
+        padding: 15,
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#97CAE5',
     },
-    slide3: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#92BBD9',
+    iconContainer: {
+        // justifyContent: 'flex-start',
+        // marginTop: 10,
+        // backgroundColor: 'red',
+        // backgroundColor: 'black',     
+        // height: 90,
+        paddingTop: 25,
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center'
     },
     textContainer: {
-        justifyContent: 'flex-start',
-        marginTop: 10,
+        // justifyContent: 'flex-start',
+        // marginTop: 10,
+        // backgroundColor: 'red',
         // backgroundColor: 'black',     
-        height: 90,
-        flex: 1,
+        // height: 90,
         flexDirection: 'row',
-        width: itemWidth
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    nameContainer: {
+        flex: 3,
+        justifyContent: 'flex-start',
+    },
+    statsContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+        // justifyContent: 'flex-start',
     },
     titleText: {
         color: 'black',
-        fontSize: 30,
-        textAlign: 'left',
-        marginLeft: 20,
-        width: 190,
-        flex: 2,
-        // backgroundColor: 'orange',
+        fontSize: 22,
+        fontWeight: 'bold',
+    },
+    addressText: {
+        color: 'grey',
+        fontSize: 15,
+    },
+    statsText: {
+        fontSize: 15,
+        textAlign: 'center',
+        color: 'grey',
     },
     peopleText: {
         color: 'black',
@@ -246,26 +322,56 @@ const styles = StyleSheet.create({
         flex: 2,
         // backgroundColor: 'orange',
     },
-    ratingContainer: {
-
-
+    priceContainer: {
         flex: 1,
-        width: 70,
-        marginRight: 10,
-        height: 70,
-        borderRadius: 500,
+        alignItems:'center',
+        justifyContent:'center'
+        // alignItems: 'flex-end',
+    },
+    priceIconText: {
+        fontSize: 22,
+        color: '#239B1F',
+        textAlign: 'center',
+        fontWeight: '300'
+    },
+    priceText: {
+        fontSize: 15,
+        color: 'grey',
+        textAlign: 'center',
+        fontWeight: '300'
+    },
+    ratingContainer: {
+        flex: 1,
+        alignItems: 'flex-end'
+        // justifyContent: 'center',
+        // alignItems: 'center',
+    },
+    iconBackground: {
         backgroundColor: '#1D5B98',
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginTop: -320,
+        // marginRight: -240,
+    },
+    ratingBackground: {
+        // // backgroundColor: '#1D5B98',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // width: 60,
+        // height: 30,
+        // borderRadius: 15,
     },
     image: {
         width,
         flex: 1
     },
     ratingText: {
-        color: '#fefefe',
-        fontSize: 45,
-        fontWeight: 'bold',
+        color: '#434343',
+        fontSize: 40,
+        fontWeight: '700',
     },
     stretch: {
         height: 300,
