@@ -3,9 +3,10 @@ import { TouchableHighlight, StyleSheet, StatusBar, Text, ScrollView, Platform, 
 import { Dimensions } from 'react-native';
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
-import {LinearGradient} from 'expo'
-import { Icon } from 'react-native-elements'
+import { LinearGradient } from 'expo'
+import { Icon, Header } from 'react-native-elements'
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
+
 const { width, height } = Dimensions.get('window');
 // const sliderWidth = width;
 // const itemWidth = slideWidth + itemHorizontalMargin * 2;
@@ -21,36 +22,49 @@ const slideWidth = 280;
 const sliderWidth = width
 const itemWidth = slideWidth + horizontalMargin * 2;
 const itemHeight = 200;
+
+let NEW_CATEGORIES_STRING = ''
+
 export default class CardScreen extends React.Component {
     static navigationOptions = {
         header: null
     };
+
     constructor(props) {
         super(props);
+
         console.log(this.props.navigation.state.params)
+
+        console.log('in card got the above data in params')
+
         this.state = {
             posts: [],
             category_id: this.props.navigation.state.params.category_id,
-            categories: '',
+            api_categories: '',
             images: []
         }
     }
 
 
     mapCategories() {
-        const _data = this.state.category_id
-        let categoryId = ''
-        console.log(_data)
-        _data.map((option, index) => {
-            categoryId += option.category_id + ','
+        const { category_id } = this.state
+        let category_string = ''
+
+        category_id.map((option, index) => {
+            category_string += option.category_id + ','
         })
-        this.setState({ categories: categoryId })
+
+        NEW_CATEGORIES_STRING = category_string
+
+        this.getData()
     }
 
 
     async getData() {
+        console.log(NEW_CATEGORIES_STRING)
+
         try {
-            let response = await fetch(`https://api.foursquare.com/v2/venues/explore?ll=37.787959,-122.4775569&categoryId=4bf58dd8d48988d1d0941735,&venuePhotos=1&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412`, {
+            let response = await fetch(`https://api.foursquare.com/v2/venues/explore?ll=37.787959,-122.4775569&categoryId=${NEW_CATEGORIES_STRING}&venuePhotos=1&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -84,11 +98,11 @@ export default class CardScreen extends React.Component {
     //         )
     //     })
     // }
+
     componentDidMount() {
-        this.getData()
-        console.log(this.state.posts)
         this.mapCategories()
     }
+
     _renderItem({ item, index }) {
         var featured_photo_suffix;
         var featured_photo_prefix;
@@ -175,7 +189,7 @@ export default class CardScreen extends React.Component {
                                 />
                             </TouchableHighlight> */}
                             <View style={styles.ratingContainer}>
-                                
+
                                 <TouchableHighlight style={styles.ratingBackground}
                                     underlayColor='#fff'>
                                     <Text style={styles.ratingText}>{item.venue.rating}</Text>
@@ -215,8 +229,18 @@ export default class CardScreen extends React.Component {
 
         return (
             <LinearGradient
-                colors={['#72afd3', '#37ecba']}
+                colors={['#80d0c7', '#13547a']}
                 style={styles.container}>
+                <Header
+                    placement="left"
+                    leftComponent={
+                        <TouchableOpacity
+                            onPress={() => { this.props.navigation.goBack() }}>
+                            <EvilIcons name="close" size={40} color="white" />
+                        </TouchableOpacity>
+                    }
+                    outerContainerStyles={{ backgroundColor: 'transparent', borderBottomWidth: 0 }}
+                />
                 <Carousel
                     layout={'default'}
                     ref={(c) => { this._carousel = c; }}
@@ -271,8 +295,8 @@ const styles = StyleSheet.create({
         // height: 90,
         paddingTop: 25,
         flexDirection: 'row',
-        alignItems:'center',
-        justifyContent:'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     textContainer: {
         // justifyContent: 'flex-start',
@@ -324,8 +348,8 @@ const styles = StyleSheet.create({
     },
     priceContainer: {
         flex: 1,
-        alignItems:'center',
-        justifyContent:'center'
+        alignItems: 'center',
+        justifyContent: 'center'
         // alignItems: 'flex-end',
     },
     priceIconText: {
