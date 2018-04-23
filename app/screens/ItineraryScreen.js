@@ -6,13 +6,15 @@ import {
     AlertIOS,
     Platform, FlatList, ScrollView, TouchableHighlight, StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard, SafeAreaView
 } from 'react-native';
-import { LinearGradient } from 'expo';
+import { LinearGradien, MapView } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Icon, Header, Card, ListItem } from 'react-native-elements';
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
 import BasicFlatList from '../components/BasicFlatList';
 import Share, { ShareSheet, Button } from 'react-native-share';
 import openMap from 'react-native-open-maps';
+
+
 
 const leftContent = <Text>Pull to activate</Text>;
 
@@ -30,9 +32,20 @@ export default class ItineraryScreen extends React.Component {
         super(props);
         this.state = {
             screen: 'null',
-            visible: false
+            visible: false,
+            mapRegion: {
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            },
         };
     }
+
+    _handleMapRegionChange = mapRegion => {
+        this.setState({ mapRegion });
+    };
+
     onCancel() {
         console.log("CANCEL")
         this.setState({ visible: false });
@@ -40,10 +53,6 @@ export default class ItineraryScreen extends React.Component {
     onOpen() {
         console.log("OPEN")
         this.setState({ visible: true });
-    }
-
-    _goToLocation() {
-        openMap({ latitude: 37.865101, longitude: -119.538330 });
     }
 
 
@@ -84,39 +93,35 @@ export default class ItineraryScreen extends React.Component {
                         />
                     </View>
                     <ScrollView>
-                        <View style={styles.mapContainer}>
-                        </View>
-
+                        <MapView
+                            style={{ alignSelf: 'stretch', height: 300, width: '100%' }}
+                            region={this.state.mapRegion}
+                            onRegionChange={this._handleMapRegionChange}
+                        />
                         <Card
                             title='Breakfast'>
                             <BasicFlatList></BasicFlatList>
-                            <TouchableOpacity
-                                style={styles.openMapContainer}
-                                onPress={this._goToLocation}
-                            >
-                                <Text>Open Maps</Text>
-                            </TouchableOpacity>
                         </Card>
+
                         <Card
                             title='Morning Attractions'>
                             <BasicFlatList></BasicFlatList>
                         </Card>
+
                         <Card
                             title='Lunch'>
                             <BasicFlatList></BasicFlatList>
                         </Card>
+
                         <Card
                             title='Afternoon Attractions'>
                             <BasicFlatList></BasicFlatList>
                         </Card>
+
                         <Card
                             title='Dinner'>
                             <BasicFlatList></BasicFlatList>
-
                         </Card>
-
-
-
 
                     </ScrollView>
                     <TouchableOpacity
@@ -224,10 +229,14 @@ const styles = StyleSheet.create({
     },
 
     mapContainer: {
-        backgroundColor: 'black',
+        // backgroundColor: 'black',
+        backgroundColor: '#ecf0f1',
         flexDirection: 'row',
         width: '100%',
         height: 300,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     separatorViewStyle: {
         flex: 1,

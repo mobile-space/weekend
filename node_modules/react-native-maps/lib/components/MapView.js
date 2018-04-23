@@ -348,6 +348,11 @@ const propTypes = {
   onMapReady: PropTypes.func,
 
   /**
+   * Callback that is called once the kml is fully loaded.
+   */
+  onKmlReady: PropTypes.func,
+
+  /**
    * Callback that is called continuously when the user is dragging the map.
    */
   onRegionChange: PropTypes.func,
@@ -368,9 +373,19 @@ const propTypes = {
   onLongPress: PropTypes.func,
 
   /**
+   * Callback that is called when the underlying map figures our users current location.
+   */
+  onUserLocationChange: PropTypes.func,
+
+  /**
    * Callback that is called when user makes a "drag" somewhere on the map
    */
   onPanDrag: PropTypes.func,
+
+  /**
+   * Callback that is called when user click on a POI
+   */
+  onPoiClick: PropTypes.func,
 
   /**
    * Callback that is called when a marker on the map is tapped by the user.
@@ -423,6 +438,11 @@ const propTypes = {
    * Maximum zoom value for the map, must be between 0 and 20
    */
   maxZoomLevel: PropTypes.number,
+
+  /**
+   * Url KML Source
+   */
+  kmlSrc: PropTypes.string,
 
 };
 
@@ -643,18 +663,7 @@ class MapView extends React.Component {
     if (Platform.OS === 'android') {
       return NativeModules.AirMapModule.pointForCoordinate(this._getHandle(), coordinate);
     } else if (Platform.OS === 'ios') {
-      return new Promise((resolve, reject) => {
-        this._runCommand('pointForCoordinate', [
-          coordinate,
-          (err, snapshot) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(snapshot);
-            }
-          },
-        ]);
-      });
+      return this._runCommand('pointForCoordinate', [coordinate]);
     }
     return Promise.reject('pointForCoordinate not supported on this platform');
   }
@@ -668,24 +677,13 @@ class MapView extends React.Component {
    *
    * @return Promise Promise with the coordinate ({ latitude: Number, longitude: Number })
    */
-  coordinateFromPoint(point) {
+  coordinateForPoint(point) {
     if (Platform.OS === 'android') {
-      return NativeModules.AirMapModule.coordinateFromPoint(this._getHandle(), point);
+      return NativeModules.AirMapModule.coordinateForPoint(this._getHandle(), point);
     } else if (Platform.OS === 'ios') {
-      return new Promise((resolve, reject) => {
-        this._runCommand('coordinateFromPoint', [
-          point,
-          (err, snapshot) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(snapshot);
-            }
-          },
-        ]);
-      });
+      return this._runCommand('coordinateForPoint', [point]);
     }
-    return Promise.reject('coordinateFromPoint not supported on this platform');
+    return Promise.reject('coordinateForPoint not supported on this platform');
   }
 
   _uiManagerCommand(name) {
@@ -703,19 +701,17 @@ class MapView extends React.Component {
   _runCommand(name, args) {
     switch (Platform.OS) {
       case 'android':
-        NativeModules.UIManager.dispatchViewManagerCommand(
+        return NativeModules.UIManager.dispatchViewManagerCommand(
           this._getHandle(),
           this._uiManagerCommand(name),
           args
         );
-        break;
 
       case 'ios':
-        this._mapManagerCommand(name)(this._getHandle(), ...args);
-        break;
+        return this._mapManagerCommand(name)(this._getHandle(), ...args);
 
       default:
-        break;
+        return Promise.reject(`Invalid platform was passed: ${Platform.OS}`);
     }
   }
 
@@ -779,6 +775,7 @@ const nativeComponent = Component => requireNativeComponent(Component, MapView, 
   nativeOnly: {
     onChange: true,
     onMapReady: true,
+    onKmlReady: true,
     handlePanDrag: true,
   },
 });

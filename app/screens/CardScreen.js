@@ -236,7 +236,8 @@ export default class CardScreen extends React.Component {
                     placement="left"
                     leftComponent={
                         <TouchableOpacity
-                            onPress={() => { this.props.navigation.goBack() }}>
+                            onPress={() => { this.props.navigation.g
+                            oBack() }}>
                             <EvilIcons name="close" size={40} color="white" />
                         </TouchableOpacity>
                     }

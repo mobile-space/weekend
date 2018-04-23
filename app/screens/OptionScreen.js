@@ -5,6 +5,7 @@ import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Header, Button, Input } from 'react-native-elements';
 
 import { TagSelect } from 'react-native-tag-select';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class OptionScreen extends React.Component {
     static navigationOptions = {
@@ -115,7 +116,7 @@ export default class OptionScreen extends React.Component {
         const data = this.getCatergoryData()
 
         return (
-            <SafeAreaView style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.container}>
                     <View style={styles.textContainer}>
                         <Text style={styles.titleText}>
@@ -154,7 +155,7 @@ export default class OptionScreen extends React.Component {
                         {this.renderDoneButton()}
                     </View>
                 </View>
-            </SafeAreaView>
+            </ScrollView>
         );
     }
 }

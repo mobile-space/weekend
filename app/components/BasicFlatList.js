@@ -11,7 +11,6 @@ import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 import openMap from 'react-native-open-maps';
 
-
 class FlatListItem extends Component {
     constructor(props) {
         super(props);
@@ -76,10 +75,7 @@ class FlatListItem extends Component {
                     flexDirection: 'column',
                     backgroundColor: 'white',
                 }}>
-                    <TouchableOpacity
-                        // style={styles.openMapContainer}
-                        onPress={this._goToLocation}
-                    >
+
                         <View style={{
                             flex: 1,
                             flexDirection: 'row',
@@ -105,7 +101,7 @@ class FlatListItem extends Component {
                                 <Text style={styles.flatListItem}>{this.props.item.foodDescription}</Text>
                             </View>
                         </View>
-                    </TouchableOpacity>
+
 
                     <View style={{
                         height: 1,
