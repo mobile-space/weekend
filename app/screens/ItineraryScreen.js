@@ -6,18 +6,21 @@ import {
     AlertIOS,
     Platform, FlatList, ScrollView, TouchableHighlight, StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard, SafeAreaView
 } from 'react-native';
-import { LinearGradien, MapView } from 'expo';
+import { LinearGradien } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Icon, Header, Card, ListItem } from 'react-native-elements';
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
 import BasicFlatList from '../components/BasicFlatList';
 import Share, { ShareSheet, Button } from 'react-native-share';
 import openMap from 'react-native-open-maps';
-
-
+import MapView, { Marker, ProviderPropType } from 'react-native-maps';
+import flagBlueImg from '../../assets/flag-blue.png';
+import flagPinkImg from '../../assets/flag-pink.png';
 
 const leftContent = <Text>Pull to activate</Text>;
-
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const SPACE = 0.01;
 
 
 const rightButtons = [
@@ -38,6 +41,10 @@ export default class ItineraryScreen extends React.Component {
                 longitude: -122.4324,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
+            },
+            coordinate: {
+                latitude: 37.78825,
+                longitude: -122.4324,
             },
         };
     }
@@ -97,7 +104,20 @@ export default class ItineraryScreen extends React.Component {
                             style={{ alignSelf: 'stretch', height: 300, width: '100%' }}
                             region={this.state.mapRegion}
                             onRegionChange={this._handleMapRegionChange}
-                        />
+                        >
+                            <Marker
+                                coordinate={{
+                                    latitude: LATITUDE + SPACE,
+                                    longitude: LONGITUDE + SPACE,
+                                }}
+                                centerOffset={{ x: -18, y: -60 }}
+                                anchor={{ x: 0.69, y: 1 }}
+                                image={this.state.marker1 ? flagBlueImg : flagPinkImg}
+                            >
+
+                            <Text style={styles.marker}>First marker</Text>
+                            </Marker>
+                        </MapView>
                         <Card
                             title='Breakfast'>
                             <BasicFlatList></BasicFlatList>
@@ -266,7 +286,12 @@ const styles = StyleSheet.create({
     },
     openMapContainer: {
         backgroundColor: '#bdc3c7',
-    }
+    },
+    marker: {
+        marginLeft: 46,
+        marginTop: 33,
+        fontWeight: 'bold',
+      },
 })
 
 //  twitter icon
