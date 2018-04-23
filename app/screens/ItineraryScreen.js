@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
-import { Button, Input } from 'react-native-elements';
+import { Icon, Header, Card, ListItem, Button } from 'react-native-elements';
+import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
 
 
 export default class ItineraryScreen extends React.Component {
@@ -17,22 +18,66 @@ export default class ItineraryScreen extends React.Component {
     }
     render() {
         return (
-            <View style={styles.container}>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('Welcome')}
-                        title="Itinerary Screen"
-                        titleStyle={{ fontWeight: "700" }}
-                        buttonStyle={{
-                            backgroundColor: "rgba(92, 99,216, 1)",
-                            width: 300,
-                            height: 45,
-                            borderColor: "transparent",
-                            borderWidth: 0,
-                            borderRadius: 5
-                        }}
-                        containerStyle={{ marginTop: 20 }}
-                    />
-            </View>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.container}>
+
+                    <View style={styles.topContainer}>
+                        <Text style={styles.titleText}>
+                            Itinerary
+                        </Text>
+                        <Header
+                            placement="left"
+                            leftComponent={
+                                <TouchableOpacity
+                                    onPress={() => { this.props.navigation.goBack() }}>
+                                    <EvilIcons name="close" size={40} color="black" />
+                                </TouchableOpacity>
+                            }
+                            outerContainerStyles={{ backgroundColor: 'transparent', borderBottomWidth: 0, marginTop: -7, }}
+                        />
+                    </View>
+                    <ScrollView>
+                        <View style={styles.mapContainer}>
+                        </View>
+
+                        <Card
+                            title='Breakfast'>
+                            <Text style={{ marginBottom: 10 }}>
+                                The idea with React Native Elements is more about component structure than actual design.
+                            </Text>
+                        </Card>
+                        <Card
+                            title='Morning Attractions'>
+                            <Text style={{ marginBottom: 10 }}>
+                                The idea with React Native Elements is more about component structure than actual design.
+                            </Text>
+                           
+                        </Card>
+                        <Card
+                            title='Lunch'>
+                            <Text style={{ marginBottom: 10 }}>
+                                The idea with React Native Elements is more about component structure than actual design.
+                            </Text>
+                          
+                        </Card>
+                        <Card
+                            title='Afternoon Attractions'>
+                            <Text style={{ marginBottom: 10 }}>
+                                The idea with React Native Elements is more about component structure than actual design.
+                            </Text>
+                        
+                        </Card>
+                        <Card
+                            title='Dinner'>
+                            <Text style={{ marginBottom: 10 }}>
+                                The idea with React Native Elements is more about component structure than actual design.
+                            </Text>
+                            
+                        </Card>
+                    </ScrollView>
+
+                </View>
+            </SafeAreaView>
         );
     }
 }
@@ -40,8 +85,25 @@ export default class ItineraryScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'yellow',
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: 'white'
     },
+    titleText: {
+        fontWeight: '700',
+        fontSize: 50,
+        // backgroundColor: 'black',   
+        flex: 2,
+    },
+    topContainer: {
+        justifyContent: 'flex-start',
+        padding: 20,
+
+        flexDirection: 'row',
+        // backgroundColor: 'black',
+    },
+    mapContainer: {
+        backgroundColor: 'black',
+        flexDirection: 'row',
+        width: '100%',
+        height: 300,
+    }
 })

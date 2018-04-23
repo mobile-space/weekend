@@ -4,8 +4,9 @@ import { Dimensions } from 'react-native';
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
 import { LinearGradient } from 'expo'
-import { Icon, Header } from 'react-native-elements'
+import { Icon, Header, Card, ListItem, Button  } from 'react-native-elements'
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
+
 
 const { width, height } = Dimensions.get('window');
 // const sliderWidth = width;
