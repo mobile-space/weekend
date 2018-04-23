@@ -193,6 +193,7 @@ export default class WelcomeScreen extends React.Component {
             userName: this.props.navigation.state.params && this.props.navigation.state.params.userName,
             cityName: '',
             regionName:'',
+            regionCode: '',
         };
     }
 
@@ -204,6 +205,7 @@ export default class WelcomeScreen extends React.Component {
                 //console.log(responseJson);
                 this.setState({
                     cityName: responseJson.city,
+                    regionCode: responseJson.region_code
                 });
             })
             .catch((error) => {
@@ -221,7 +223,7 @@ export default class WelcomeScreen extends React.Component {
                         Hi {this.state.userName}
                     </Text>
                     <Text style={styles.placeText}>
-                        Welcome to {this.state.cityName}
+                        Welcome to {this.state.cityName}, {this.state.regionCode}.
                 </Text>
                     <Text style={styles.greetingText}>
                         Let's plan your weekend!
