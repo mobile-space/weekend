@@ -58,6 +58,14 @@ class FlatListItem extends Component {
                     text: 'Delete', type: 'delete'
                 }
             ],
+            left: [
+                {
+                    onPress: () => {
+                        openMap({ latitude: 37.865101, longitude: -119.538330 });
+                    },
+                    text: 'Navigate', type: 'primary'
+                }
+            ],
             rowId: this.props.index,
             sectionId: 1
         };
@@ -72,33 +80,33 @@ class FlatListItem extends Component {
                         // style={styles.openMapContainer}
                         onPress={this._goToLocation}
                     >
-                         <View style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        marginBottom: 5,
-                        // backgroundColor: this.props.index % 2 == 0 ? 'mediumseagreen': 'tomato'                
-                        backgroundColor: '#E3E3E3',
-                        borderTopLeftRadius: 50,
-                        borderBottomLeftRadius: 50,
-                        borderTopRightRadius: 10,
-                        borderBottomRightRadius: 10
-                    }}>
-                        <Image
-                            source={{ uri: this.props.item.imageUrl }}
-                            style={{ width: 100, height: 100, margin: 5, borderRadius: 50 }}
-                        >
-                        </Image>
                         <View style={{
                             flex: 1,
-                            flexDirection: 'column',
-                            height: 100
+                            flexDirection: 'row',
+                            marginBottom: 5,
+                            // backgroundColor: this.props.index % 2 == 0 ? 'mediumseagreen': 'tomato'                
+                            backgroundColor: '#E3E3E3',
+                            borderTopLeftRadius: 50,
+                            borderBottomLeftRadius: 50,
+                            borderTopRightRadius: 10,
+                            borderBottomRightRadius: 10
                         }}>
-                            <Text style={styles.flatListText}>{this.props.item.name}</Text>
-                            <Text style={styles.flatListItem}>{this.props.item.foodDescription}</Text>
+                            <Image
+                                source={{ uri: this.props.item.imageUrl }}
+                                style={{ width: 100, height: 100, margin: 5, borderRadius: 50 }}
+                            >
+                            </Image>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'column',
+                                height: 100
+                            }}>
+                                <Text style={styles.flatListText}>{this.props.item.name}</Text>
+                                <Text style={styles.flatListItem}>{this.props.item.foodDescription}</Text>
+                            </View>
                         </View>
-                    </View>
                     </TouchableOpacity>
-                   
+
                     <View style={{
                         height: 1,
                         backgroundColor: 'white'
