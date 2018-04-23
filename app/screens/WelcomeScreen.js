@@ -5,6 +5,8 @@ import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Button, Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import { Constants, Location, Permissions } from 'expo';
+
 const CATEGORIES = {
     'Food': [
         { id: 1, label: 'hotpot', category_id: '52af0bd33cf9994f4e043bdd' },
@@ -189,8 +191,26 @@ export default class WelcomeScreen extends React.Component {
         this.state = {
             screen: 'null',
             userName: this.props.navigation.state.params && this.props.navigation.state.params.userName,
+            cityName: '',
+            regionName:'',
         };
     }
+
+    componentDidMount() {
+        var url = 'https://freegeoip.net/json/';
+        fetch(url)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //console.log(responseJson);
+                this.setState({
+                    cityName: responseJson.city,
+                });
+            })
+            .catch((error) => {
+                //console.error(error);
+            });
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -201,7 +221,7 @@ export default class WelcomeScreen extends React.Component {
                         Hi {this.state.userName}
                     </Text>
                     <Text style={styles.placeText}>
-                        Welcome to San Francisco
+                        Welcome to {this.state.cityName}
                 </Text>
                     <Text style={styles.greetingText}>
                         Let's plan your weekend!
