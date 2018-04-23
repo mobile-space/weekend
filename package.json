@@ -9,6 +9,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
     "react-native-elements": "^1.0.0-beta4",
     "react-native-linear-gradient": "^2.4.0",
+    "react-native-open-maps": "^0.1.4",
     "react-native-share": "^1.0.27",
     "react-native-sideswipe": "^1.4.1",
     "react-native-smooth-swipe-list": "^1.4.4",

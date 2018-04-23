@@ -12,6 +12,7 @@ import { Icon, Header, Card, ListItem } from 'react-native-elements';
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
 import BasicFlatList from '../components/BasicFlatList';
 import Share, { ShareSheet, Button } from 'react-native-share';
+import openMap from 'react-native-open-maps';
 
 const leftContent = <Text>Pull to activate</Text>;
 
@@ -41,6 +42,11 @@ export default class ItineraryScreen extends React.Component {
         this.setState({ visible: true });
     }
 
+    _goToLocation() {
+        openMap({ latitude: 37.865101, longitude: -119.538330 });
+    }
+
+
     render() {
         let shareOptions = {
             title: "React Native",
@@ -69,8 +75,8 @@ export default class ItineraryScreen extends React.Component {
                             leftComponent={
                                 <TouchableOpacity
                                     onPress={() => { this.props.navigation.goBack() }}
-                                    activeOpacity = {0.1}
-                                    >
+                                    activeOpacity={0.1}
+                                >
                                     <EvilIcons name="close" size={40} color="black" />
                                 </TouchableOpacity>
                             }
@@ -84,6 +90,12 @@ export default class ItineraryScreen extends React.Component {
                         <Card
                             title='Breakfast'>
                             <BasicFlatList></BasicFlatList>
+                            <TouchableOpacity
+                                style={styles.openMapContainer}
+                                onPress={this._goToLocation}
+                            >
+                                <Text>Open Maps</Text>
+                            </TouchableOpacity>
                         </Card>
                         <Card
                             title='Morning Attractions'>
@@ -100,7 +112,10 @@ export default class ItineraryScreen extends React.Component {
                         <Card
                             title='Dinner'>
                             <BasicFlatList></BasicFlatList>
+
                         </Card>
+
+
 
 
                     </ScrollView>
@@ -222,6 +237,7 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#000',
     },
+
     buttonContainer: {
         width: '100%',
         height: 50,
@@ -238,6 +254,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '400',
         fontSize: 20
+    },
+    openMapContainer: {
+        backgroundColor: '#bdc3c7',
     }
 })
 
