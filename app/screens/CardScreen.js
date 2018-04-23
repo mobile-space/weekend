@@ -34,15 +34,17 @@ export default class CardScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props.navigation.state.params)
+        // console.log(this.props.navigation.state.params)
 
-        console.log('in card got the above data in params')
+        // console.log('in card got the above data in params')
 
         this.state = {
             posts: [],
             category_id: this.props.navigation.state.params.category_id,
             api_categories: '',
-            images: []
+            images: [],
+            latitude: this.props.navigation.state.params.latitude,
+            longitude: this.props.navigation.state.params.longitude,
         }
     }
 
@@ -62,10 +64,10 @@ export default class CardScreen extends React.Component {
 
 
     async getData() {
-        console.log(NEW_CATEGORIES_STRING)
+        // console.log(NEW_CATEGORIES_STRING)
 
         try {
-            let response = await fetch(`https://api.foursquare.com/v2/venues/explore?ll=37.787959,-122.4775569&categoryId=${NEW_CATEGORIES_STRING}&venuePhotos=1&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412`, {
+            let response = await fetch(`https://api.foursquare.com/v2/venues/explore?ll=${this.state.latitude},${this.state.longitude}&categoryId=${NEW_CATEGORIES_STRING}&venuePhotos=1&client_id=B4VPN5TQAXJ23ML1JLVQLGG0RBBKUJCZGQ4B2M32BKG3VC31&client_secret=TCIY0NOQASHESDN4QW3UAIAUSLOP2XOLYRU1EPYL4BTAB2ZY&v=20180412`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -78,7 +80,7 @@ export default class CardScreen extends React.Component {
                 this.setState({
                     posts: responseJSON.response.groups[0].items,
                 })
-                console.log(posts)
+                // console.log(posts)
             } else {
                 responseJSON = await response.json();
                 const error = responseJSON.message
@@ -102,6 +104,7 @@ export default class CardScreen extends React.Component {
 
     componentDidMount() {
         this.mapCategories()
+        
     }
 
     _renderItem({ item, index }) {
