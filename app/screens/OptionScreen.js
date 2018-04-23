@@ -18,16 +18,35 @@ export default class OptionScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('here')
+        // console.log('here')
 
-        console.log(this.props.navigation.state.params)
+        // console.log(this.props.navigation.state.params)
 
         this.state = {
             categories: this.props.navigation.state.params && this.props.navigation.state.params.categories, 
             category_key: this.props.navigation.state.params && this.props.navigation.state.params.category_key,
             planner_keys: this.props.navigation.state.params && this.props.navigation.state.params.planner_keys,
             current_index: this.props.navigation.state.params && this.props.navigation.state.params.current_index,
+            latitude: '',
+            longitude: '',
         };
+    }
+
+
+    componentDidMount() {
+        var url = 'https://freegeoip.net/json/';
+        fetch(url)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //console.log(responseJson);
+                this.setState({
+                    latitude: responseJson.latitude,
+                    longitude: responseJson.longitude
+                });
+            })
+            .catch((error) => {
+                //console.error(error);
+            });
     }
 
     getCatergoryData() {
@@ -137,7 +156,7 @@ export default class OptionScreen extends React.Component {
                     </View>
                     <View style={styles.planningContainer}>
                         <Button
-                            onPress={() => this.props.navigation.navigate('Card', { category_id: this.tag.itemsSelected })}
+                            onPress={() => this.props.navigation.navigate('Card', { category_id: this.tag.itemsSelected, latitude: this.state.latitude, longitude: this.state.longitude })}
                             title="Select"
                             titleStyle={{ fontWeight: "700" }}
                             containerViewStyle={{ marginTop: 300, alignItems: 'center' }}
