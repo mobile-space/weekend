@@ -1,12 +1,13 @@
 import React from 'react';
-import { TouchableHighlight, StyleSheet, StatusBar, Text, ScrollView, Platform, View, Image, SafeAreaView, TouchableOpacity, Alert, Keyboard } from 'react-native';
+import { TouchableHighlight, StyleSheet, Animated, Easing, StatusBar, Text, ScrollView, Platform, View, Image, SafeAreaView, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import { Dimensions } from 'react-native';
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
 import { LinearGradient } from 'expo'
 import { Icon, Header, Card, ListItem, Button  } from 'react-native-elements'
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
-
+import Animation from 'lottie-react-native';
+import LottieAnimation from 'easy-lottie-react-native';
 
 const { width, height } = Dimensions.get('window');
 // const sliderWidth = width;
@@ -45,7 +46,9 @@ export default class CardScreen extends React.Component {
             images: [],
             latitude: this.props.navigation.state.params.latitude,
             longitude: this.props.navigation.state.params.longitude,
+            progress: new Animated.Value(0),
         }
+        console.log(this.state.progress)
     }
 
 
@@ -60,6 +63,14 @@ export default class CardScreen extends React.Component {
         NEW_CATEGORIES_STRING = category_string
 
         this.getData()
+    }
+
+    lottieOnPressStart(){
+        Animated.timing(this.state.progress, {
+            toValue: 1,
+            duration: 2000,
+            easing: Easing.linear,
+        }).start();
     }
 
 
@@ -180,6 +191,18 @@ export default class CardScreen extends React.Component {
                         source={{ uri: `${featured_photo_prefix}500x500${featured_photo_suffix}` || '' }}
                     />
                     <View style={styles.infoContainer}>
+                        <TouchableOpacity
+                            style={styles.animationContainer}
+                            onPress={this.lottieOnPressStart.bind(this)}>
+                            <Animation
+                                style={{
+                                    height: 50,
+                                    width: 50,
+                                }}
+                                source={require('../../assets/heartbutton.json')}
+                                progress={this.state.progress}
+                            />
+                        </TouchableOpacity>
                         <View style={styles.textContainer}>
                             <View style={styles.nameContainer}>
                                 <Text style={styles.titleText}>{name}</Text>
@@ -230,7 +253,7 @@ export default class CardScreen extends React.Component {
     }
     render() {
         const { posts } = this.state;
-
+        console.log(this.state.progress);
         return (
             <LinearGradient
                 colors={['#80d0c7', '#13547a']}
@@ -257,6 +280,7 @@ export default class CardScreen extends React.Component {
             </LinearGradient>
         );
     }
+    
 }
 const styles = StyleSheet.create({
     container: {
@@ -404,5 +428,12 @@ const styles = StyleSheet.create({
     stretch: {
         height: 300,
         width: 300,
+    },
+    animationContainer: {
+        position: 'absolute',
+        bottom: 210,
+        right: 10,
+        width: 50,
+        height: 50
     }
 })
