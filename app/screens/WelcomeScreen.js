@@ -192,7 +192,7 @@ export default class WelcomeScreen extends React.Component {
             screen: 'null',
             userName: this.props.navigation.state.params && this.props.navigation.state.params.userName,
             cityName: '',
-            regionName:'',
+            regionName: '',
             regionCode: '',
         };
     }
@@ -215,41 +215,38 @@ export default class WelcomeScreen extends React.Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.container}>
                     {/* Plan your Day */}
+                    <View style={styles.plannerContainer}>
+                        <Text style={styles.nameText}>
+                            Hi {this.state.userName}
+                        </Text>
+                        <Text style={styles.placeText}>
+                            Explore {this.state.cityName}, {this.state.regionCode}
+                        </Text>
 
-                    <Text style={styles.nameText}>
-                        Hi {this.state.userName}
-                    </Text>
-                    <Text style={styles.placeText}>
-                        Welcome to {this.state.cityName}, {this.state.regionCode}
-                </Text>
-                    <Text style={styles.greetingText}>
-                        Let's plan your weekend!
-                </Text>
-
-                    <View style={styles.planningButton}>
-                        <Button
-                            onPress={() => this.props.navigation.navigate('Option', { categories: PLANNER, current_index: 0, planner_keys: PLANNER_KEYS })}
-                            title="Start"
-                            titleStyle={{ fontWeight: "700" }}
-                            containerViewStyle={{ marginTop: 300, alignItems: 'center' }}
-                            linearGradientProps={{
-                                colors: ['#80d0c7', '#80d0c7'],
-                            }}
-                            buttonStyle={{
-                                width: 150,
-                                height: 46,
-                                borderRadius: 23
-                            }}
-                        />
+                        <View style={styles.planningButton}>
+                            <Button
+                                onPress={() => this.props.navigation.navigate('Option', { categories: PLANNER, current_index: 0, planner_keys: PLANNER_KEYS })}
+                                title="Start Planning"
+                                titleStyle={{ fontWeight: "700" }}
+                                containerViewStyle={{ alignItems: 'center' }}
+                                buttonStyle={{
+                                    borderWidth: 3,
+                                    borderColor: 'rgba(255, 255, 255, 0.5);', 
+                                    backgroundColor: 'transparent',
+                                    width: 180,
+                                    height: 50,
+                                    borderRadius: 25
+                                }}
+                            />
+                        </View>
                     </View>
 
                     {/* Specific Plans */}
 
                     <Text style={styles.greetingText}>
-                        Have something specific in mind?
+                        Popular
                 </Text>
 
                     {/* <View style={styles.planningButton}>
@@ -367,7 +364,6 @@ export default class WelcomeScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-            </SafeAreaView>
         );
     }
 }
@@ -376,25 +372,30 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
-
+    plannerContainer: {
+        height: 600,
+        justifyContent:'center',
+        backgroundColor: '#307983'
+    },
     placeText: {
-        fontSize: 20,
+        fontSize: 40,
+        fontWeight: '700',
         textAlignVertical: "center",
         textAlign: "left",
         marginLeft: 30,
-        color: 'grey',
+        color: 'white',
     },
 
     nameText: {
+        color: 'white',
         fontSize: 40,
-        fontWeight: '700',
+        fontWeight: '300',
         textAlignVertical: "center",
         textAlign: "left",
         marginLeft: 30,
         marginTop: 30
     },
     greetingText: {
-
         fontSize: 25,
         textAlignVertical: "center",
         textAlign: "left",
@@ -426,8 +427,7 @@ const styles = StyleSheet.create({
     },
 
     planningButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 10
+        marginTop: 50,
+        marginLeft: 30
     }
 })
