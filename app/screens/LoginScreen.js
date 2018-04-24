@@ -100,8 +100,19 @@ export default class App extends Component {
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>{"CONTINUE WITH FACEBOOK"}</Text>
                         </View>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Process')}
+                    
+                >
+                    <View style={styles.skipButtonContainer}>
+
+                        <View style={styles.skipButton}>
+                            <Text style={styles.buttonText}>{"SKIP"}</Text>
                         </View>
-                    </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
 
             </View>
         );
@@ -163,7 +174,7 @@ const styles = StyleSheet.create({
 
         borderRadius: 50,
         alignItems: 'center',
-        bottom: 30,
+
     },
     buttonText: {
         margin: 15,
@@ -171,6 +182,15 @@ const styles = StyleSheet.create({
         marginRight: 40,
         color: '#fff',
         fontSize: 14,
+    },
+    skipButton: {
+        marginLeft: 40,
+        marginRight: 40,
+    },
+    skipButtonContainer: {
+        marginTop: -10,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     photo: {
 
