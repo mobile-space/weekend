@@ -223,7 +223,7 @@ export default class WelcomeScreen extends React.Component {
                         Hi {this.state.userName}
                     </Text>
                     <Text style={styles.placeText}>
-                        Welcome to {this.state.cityName}, {this.state.regionCode}.
+                        Welcome to {this.state.cityName}, {this.state.regionCode}
                 </Text>
                     <Text style={styles.greetingText}>
                         Let's plan your weekend!

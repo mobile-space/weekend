@@ -1,44 +1,44 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard } from 'react-native';
-import { LinearGradient } from 'expo';
-import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
-import { Button, Input } from 'react-native-elements';
+import React, { Component } from 'react';
+import { Animated, Text, Keyboard, View, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 
+import { Constants } from 'expo';
+const SF = require('../../images/onboarding/sf.png')
+const PARIS = require('../../images/onboarding/paris.png')
+const TOKYO = require('../../images/onboarding/tokyo.png')
+const LAST = require('../../images/onboarding/last.png')
 import { logInUser } from '../actions';
+const PAGE_WIDTH = Dimensions.get('window').width;
+const PAGES = [
+    {
+        title: 'Stress-free planning',
+        description: "Get personalised activity ideas based on place and time",
+        backgroundColor: '#0264BC',
+        image: SF,
+    },
+    {
+        title: 'All your trip details in one spot',
+        description: "Save all spots to a single itinerary",
+        backgroundColor: '#1abc9c',
+        image: TOKYO,
+    },
+    {
+        title: 'No internet? No problem.',
+        description: "Browse you itinerary even with no internet connection",
+        backgroundColor: '#d35400',
+        image: PARIS,
+    },
+    {
+        title: 'You are on your way',
+        description: "Get Started",
+        backgroundColor: '#4A90E2',
+        image: LAST,
+    },
+]
 
-import OnBoard from '../components/onBoard'
-import Onboarding from 'react-native-onboarding-swiper';
-import SF from '../../assets/sf.gif'
-import NYC from '../../assets/nyc.gif'
-import SEA from '../../assets/sea.gif'
-import LOGO from '../../assets/logo.png'
-
-
-export default class LoginScreen extends React.Component {
-    static navigationOptions = {
-        header: null
+export default class App extends Component {
+    state = {
+        scroll: new Animated.Value(0),
     };
-    constructor(props) {
-        super(props);
-        this.state = {
-            screen: 'null',
-        };
-    }
-
-    // fbLogIn = async () => {
-    //     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('376209866188920', {
-    //         permissions: ['public_profile'],
-    //     });
-    //     if (type === 'success') {
-    //         const response = await fetch(
-    //             `https://graph.facebook.com/me?access_token=${token}`
-    //         );
-    //         const userInfo = await response.json();
-    //         Keyboard.dismiss();
-    //         const { navigate } = this.props.navigation;
-    //         navigate('WelcomeDetail');
-    //     }
-    // }
 
     logIn = async () => {
         const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('376209866188920', {
@@ -56,51 +56,54 @@ export default class LoginScreen extends React.Component {
     }
 
     render() {
+        const position = Animated.divide(this.state.scroll, PAGE_WIDTH);
+        const backgroundColor = position.interpolate({
+            inputRange: PAGES.map((_, i) => i),
+            outputRange: PAGES.map(p => p.backgroundColor),
+        });
+        console.log(PAGE_WIDTH)
+
         return (
-            <Onboarding
-                onSkip={() => this.props.navigation.navigate('Process')}
-                onDone={() => this.props.navigation.navigate('Process')}
-                pages={[
+            <View style={styles.container}>
+                <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor, opacity: 0.8 }]} />
 
-                    {
-                        title: 'ALL THE FUN, WITHOUT THE HASSLE',
-                        backgroundColor: 'white',
-                        image: <Image source={SF} style={styles.logo} />,
-                        subtitle: 'SF CITY',
+                <Animated.ScrollView
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    scrollEventThrottle={16}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { x: this.state.scroll } } }],
+                    )}>
 
-                    }
-                    ,
-                    {
-                        title: 'PICK A CITY OR PLACE',
-                        backgroundColor: 'white',
-                        image: <Image source={NYC} style={styles.logo} />,
-                        subtitle: 'NYC CITY',
-                    },
+                    {PAGES.map((page, i) => (
+                        <View key={i} style={styles.page}>
+                            <View style={[styles.card]}>
+                                <Text style={styles.title}>{page.title}</Text>
+                                <Text style={styles.desc}>{page.description}</Text>
+                            </View>
 
-                    {
-                        title: 'RECEIVE YOUR ITINERARY & ENJOY',
-                        backgroundColor: 'white',
-                        image: <Image source={SEA} style={styles.logo} />,
-                        subtitle: 'SEATTLE',
-                    },
-                    {
-                        title: "WKNDR",
-                        subtitle: (
-                            <Button
-                                buttonStyle={styles.button}
-                                onPress={this.logIn}
-                                backgroundColor="#4267B2"
+                            <Animated.View style={[styles.frame, { transform: [{ translateX: Animated.multiply(Animated.add(position, -i), -300) }] }]}>
+                                <Animated.Image
+                                    source={page.image}
+                                    style={styles.photo}
+                                />
+                            </Animated.View>
+                        </View>
+                    ))}
+                </Animated.ScrollView>
+                <TouchableOpacity
+                    onPress={this.logIn}
+                >
+                    <View style={styles.buttonContainer}>
 
-                                title="Login with Facebook"
-                            />
-                        ),
-                        backgroundColor: 'white',
-                        image: (
-                            <Image source={LOGO} style={styles.logo} />
-                        ),
-                    },
-                ]}
-            />
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>{"CONTINUE WITH FACEBOOK"}</Text>
+                        </View>
+                        </View>
+                    </TouchableOpacity>
+
+            </View>
         );
     }
 }
@@ -108,25 +111,77 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
-        // alignItems: 'center',
-        // justifyContent: 'center'
     },
-    introContainer: {
+    shadow: {
+        elevation: 16,
+        shadowColor: '#000000',
+        shadowOpacity: 0.5,
+        shadowRadius: 20,
+        shadowOffset: {
+            height: 12
+        },
+    },
+    title: {
+        fontSize: PAGE_WIDTH / 12,
+        fontWeight: 'bold',
+        color: '#fff',
+        backgroundColor: 'transparent',
+        textAlign: 'center'
+    },
+
+    desc: {
+        fontSize: PAGE_WIDTH / 24,
+        color: '#fff',
+        backgroundColor: 'transparent',
+        marginTop: 20,
+        lineHeight: 25,
+        textAlign: 'center'
+    },
+    page: {
+        width: PAGE_WIDTH,
+        paddingTop: Constants.statusBarHeight + 48,
+    },
+    card: {
+        position: 'absolute',
+        margin: 12,
         marginTop: 40,
-        flex: 3,
-        alignItems: 'center',
-        justifyContent: 'center',
+        left: 12,
+        top: 0,
+        right: 0,
+        borderRadius: 8,
+        paddingHorizontal: 24,
+        paddingTop: 16,
+        paddingBottom: 140,
     },
-    logo: {
-        resizeMode: 'contain',
-        width: 200,
-        height: 200,
+    frame: {
+        top: 150,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    button: {
+        backgroundColor: 'rgba(0,0,0, 0.3)',
+
+        borderRadius: 50,
+        alignItems: 'center',
+        bottom: 30,
+    },
+    buttonText: {
+        margin: 15,
+        marginLeft: 40,
+        marginRight: 40,
+        color: '#fff',
+        fontSize: 14,
+    },
+    photo: {
+
+
     },
     buttonContainer: {
-        flex: 1,
+        // backgroundColor: 'black',
+
+        margin: 12,
+        marginTop: 40,
         alignItems: 'center',
-        justifyContent: 'center',
-        justifyContent: 'space-around',
-    },
-})
+        justifyContent: 'center'
+    }
+});
