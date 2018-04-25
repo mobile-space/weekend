@@ -20,7 +20,7 @@ export default StackNavigator({
         screen: ItineraryScreen
     }
 }, {
-    initialRouteName: 'Intro',
+    initialRouteName: 'Process',
     mode: 'modal',
     headerMode: 'none'
 });

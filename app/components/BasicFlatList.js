@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import { AppRegistry, TouchableOpacity, FlatList, StyleSheet, Text, View, Image, Alert } from 'react-native';
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
+import { Icon, Header, Card, ListItem } from 'react-native-elements';
 import openMap from 'react-native-open-maps';
 
 class FlatListItem extends Component {
@@ -71,44 +72,23 @@ class FlatListItem extends Component {
         return (
             <Swipeout {...swipeSettings}>
                 <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
                     backgroundColor: 'white',
+                    // borderTopLeftRadius: 50,
+                    // borderBottomLeftRadius: 50,
+                    // borderTopRightRadius: 10,
+                    // borderBottomRightRadius: 10
                 }}>
-
-                        <View style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginBottom: 5,
-                            // backgroundColor: this.props.index % 2 == 0 ? 'mediumseagreen': 'tomato'                
-                            backgroundColor: '#E3E3E3',
-                            borderTopLeftRadius: 50,
-                            borderBottomLeftRadius: 50,
-                            borderTopRightRadius: 10,
-                            borderBottomRightRadius: 10
-                        }}>
-                            <Image
-                                source={{ uri: this.props.item.imageUrl }}
-                                style={{ width: 100, height: 100, margin: 5, borderRadius: 50 }}
-                            >
-                            </Image>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'column',
-                                height: 100
-                            }}>
-                                <Text style={styles.flatListText}>{this.props.item.name}</Text>
-                                <Text style={styles.flatListItem}>{this.props.item.foodDescription}</Text>
-                            </View>
+                <Card
+                    image={{uri : this.props.item.imageUrl}}
+                    imageStyle={{height: 220}}
+                    containerStyle={{width: 320}}>
+                    <View style={styles.cardContainer}>
+                    <Text style={{ marginBottom: 10 }}>
+                        {this.props.item.name}</Text>
+                    <Text style={{ marginBottom: 10 }}>
+                        {this.props.item.foodDescription}</Text>
                         </View>
-
-
-                    <View style={{
-                        height: 1,
-                        backgroundColor: 'white'
-                    }}>
-
-                    </View>
+                </Card>
                 </View>
             </Swipeout>
 
@@ -116,11 +96,22 @@ class FlatListItem extends Component {
     }
 }
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+    },
+    cardContainer:{
+        flex:1,
+        backgroundColor: 'white',
+        flexDirection:'row',
+        justifyContent: 'space-between'
+    },
     flatListItem: {
+        backgroundColor: 'white',
         color: 'black',
         padding: 10,
         fontSize: 15,
-
     },
     flatListText: {
         color: 'black',
@@ -146,7 +137,7 @@ export default class BasicFlatList extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center', padding: 5 }}>
                 <FlatList
                     data={flatListData}
                     renderItem={({ item, index }) => {
@@ -157,7 +148,6 @@ export default class BasicFlatList extends Component {
                             </FlatListItem>);
                     }}
                 >
-
                 </FlatList>
             </View>
         );

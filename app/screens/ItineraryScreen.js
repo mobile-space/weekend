@@ -6,7 +6,7 @@ import {
     AlertIOS,
     Platform, FlatList, ScrollView, TouchableHighlight, StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard, SafeAreaView
 } from 'react-native';
-import { LinearGradien } from 'expo';
+import { LinearGradient, Font } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Icon, Header, Card, ListItem } from 'react-native-elements';
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
@@ -46,6 +46,8 @@ export default class ItineraryScreen extends React.Component {
                 latitude: 37.78825,
                 longitude: -122.4324,
             },
+            cityName: '',
+            fontLoaded: false
         };
     }
 
@@ -62,6 +64,26 @@ export default class ItineraryScreen extends React.Component {
         this.setState({ visible: true });
     }
 
+    async componentDidMount() {
+        var url = 'https://freegeoip.net/json/';
+        fetch(url)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //console.log(responseJson);
+                this.setState({
+                    cityName: responseJson.city,
+                });
+            })
+            .catch((error) => {
+                //console.error(error);
+            });
+
+        await Font.loadAsync({
+            'segoe': require('../../assets/segoeuisl.ttf'),
+            'futura': require('../../assets/Futura.ttf'),
+        });
+        this.setState({ fontLoaded: true });
+    }
 
     render() {
         let shareOptions = {
@@ -79,71 +101,84 @@ export default class ItineraryScreen extends React.Component {
         };
 
         return (
-            <SafeAreaView style={styles.container}>
-                <View style={styles.container}>
+            <View style={styles.container}>
+                <ScrollView style={styles.container}>
+                    <Header
+                        placement="left"
+                        leftComponent={
+                            <TouchableOpacity
+                                onPress={() => { this.props.navigation.goBack() }}
 
-                    <View style={styles.topContainer}>
-                        <Text style={styles.titleText}>
-                            Itinerary
-                        </Text>
-                        <Header
-                            placement="left"
-                            leftComponent={
-                                <TouchableOpacity
-                                    onPress={() => { this.props.navigation.goBack() }}
-                                    activeOpacity={0.1}
-                                >
-                                    <EvilIcons name="close" size={40} color="black" />
-                                </TouchableOpacity>
-                            }
-                            outerContainerStyles={{ backgroundColor: 'transparent', borderBottomWidth: 0, marginTop: -7, }}
-                        />
-                    </View>
-                    <ScrollView>
-                        <MapView
-                            style={{ alignSelf: 'stretch', height: 300, width: '100%' }}
-                            region={this.state.mapRegion}
-                            onRegionChange={this._handleMapRegionChange}
-                        >
-                            <Marker
-                                coordinate={{
-                                    latitude: LATITUDE + SPACE,
-                                    longitude: LONGITUDE + SPACE,
-                                }}
-                                centerOffset={{ x: -18, y: -60 }}
-                                anchor={{ x: 0.69, y: 1 }}
-                                image={this.state.marker1 ? flagBlueImg : flagPinkImg}
                             >
+                                <EvilIcons name="close" size={40} color="white" />
+                            </TouchableOpacity>
+                        }
+                        outerContainerStyles={{ backgroundColor: '#307983', borderBottomWidth: 0, marginTop: -7, }}
+                    />
+                    <View style={styles.topContainer}>
+                        <View style={{ marginTop: 40 }}>
+                            {
+                                this.state.fontLoaded ? (
+                                    <Text style={styles.titleText}>
+                                        Weekend in
+                        </Text>
+                                ) : null
+                            }
+
+                            {
+                                this.state.fontLoaded ? (
+                                    <Text style={styles.cityText}>
+                                        San Francisco
+                        </Text>
+                                ) : null
+                            }
+
+                        </View>
+                    </View>
+                    <MapView
+                        style={{ alignSelf: 'stretch', height: 300, width: '100%' }}
+                        region={this.state.mapRegion}
+                        onRegionChange={this._handleMapRegionChange}
+                    >
+                        <Marker
+                            coordinate={{
+                                latitude: LATITUDE + SPACE,
+                                longitude: LONGITUDE + SPACE,
+                            }}
+                            centerOffset={{ x: -18, y: -60 }}
+                            anchor={{ x: 0.69, y: 1 }}
+                            image={this.state.marker1 ? flagBlueImg : flagPinkImg}
+                        >
 
                             <Text style={styles.marker}>First marker</Text>
-                            </Marker>
-                        </MapView>
-                        <Card
-                            title='Breakfast'>
-                            <BasicFlatList></BasicFlatList>
-                        </Card>
+                        </Marker>
+                    </MapView>
+                    {
+                        this.state.fontLoaded ? (
+                            <Text style={styles.greetingText}>Itinerary</Text>
+                        ) : null
+                    }
+                    
+                    <View>
+                        <BasicFlatList></BasicFlatList>
+                    </View>
 
-                        <Card
-                            title='Morning Attractions'>
-                            <BasicFlatList></BasicFlatList>
-                        </Card>
+                    <View>
+                        <BasicFlatList></BasicFlatList>
+                    </View>
 
-                        <Card
-                            title='Lunch'>
-                            <BasicFlatList></BasicFlatList>
-                        </Card>
+                    <View>
+                        <BasicFlatList></BasicFlatList>
+                    </View>
 
-                        <Card
-                            title='Afternoon Attractions'>
-                            <BasicFlatList></BasicFlatList>
-                        </Card>
+                    <View>
+                        <BasicFlatList></BasicFlatList>
+                    </View>
 
-                        <Card
-                            title='Dinner'>
-                            <BasicFlatList></BasicFlatList>
-                        </Card>
+                    <View>
+                        <BasicFlatList></BasicFlatList>
+                    </View>
 
-                    </ScrollView>
                     <TouchableOpacity
                         style={styles.buttonContainer}
                         onPress={this.onOpen.bind(this)}>
@@ -223,8 +258,8 @@ export default class ItineraryScreen extends React.Component {
                                 }, 300);
                             }}>More</Button>
                     </ShareSheet>
-                </View>
-            </SafeAreaView>
+                </ScrollView>
+            </View>
         );
     }
 }
@@ -235,22 +270,30 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     titleText: {
-        fontWeight: '700',
-        fontSize: 50,
-        // backgroundColor: 'black',   
-        flex: 2,
+        fontFamily: 'segoe',
+        color: 'white',
+        fontSize: 40,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
+    },
+    cityText: {
+        fontFamily:'futura',
+        color: 'white',
+        fontSize: 40,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
     },
     topContainer: {
-        justifyContent: 'flex-start',
-        padding: 20,
-
-        flexDirection: 'row',
-        // backgroundColor: 'black',
+        height: 200,
+        justifyContent: 'center',
+        backgroundColor: '#307983'
     },
 
     mapContainer: {
         // backgroundColor: 'black',
-        backgroundColor: '#ecf0f1',
+        backgroundColor: 'white',
         flexDirection: 'row',
         width: '100%',
         height: 300,
@@ -266,6 +309,14 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#000',
     },
+    placeText: {
+        fontSize: 40,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
+        marginTop: 40,
+        color: 'white',
+    },
 
     buttonContainer: {
         width: '100%',
@@ -274,7 +325,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'purple',
+        backgroundColor: '#307983',
         alignSelf: 'flex-end',
         position: 'absolute',
         bottom: 0
@@ -285,13 +336,21 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     openMapContainer: {
-        backgroundColor: '#bdc3c7',
+        backgroundColor: 'white',
     },
     marker: {
         marginLeft: 46,
         marginTop: 33,
         fontWeight: 'bold',
-      },
+    },
+    greetingText: {
+        fontFamily:'segoe',
+        fontSize: 25,
+        textAlignVertical: "center",
+        textAlign: "left",
+        marginLeft: 30,
+        marginTop: 30
+    },
 })
 
 //  twitter icon

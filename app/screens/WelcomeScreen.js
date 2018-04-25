@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard, SafeAreaView } from 'react-native';
-import { LinearGradient } from 'expo';
+import { LinearGradient, Font } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Button, Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -192,12 +192,11 @@ export default class WelcomeScreen extends React.Component {
             screen: 'null',
             userName: this.props.navigation.state.params && this.props.navigation.state.params.userName,
             cityName: '',
-            regionName: '',
-            regionCode: '',
+            fontLoaded: false,
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         var url = 'https://freegeoip.net/json/';
         fetch(url)
             .then((response) => response.json())
@@ -205,165 +204,170 @@ export default class WelcomeScreen extends React.Component {
                 //console.log(responseJson);
                 this.setState({
                     cityName: responseJson.city,
-                    regionCode: responseJson.region_code
                 });
             })
             .catch((error) => {
                 //console.error(error);
             });
+
+        await Font.loadAsync({
+            'segoe': require('../../assets/segoeuisl.ttf'),
+            'futura': require('../../assets/Futura.ttf'),
+        });
+        this.setState({ fontLoaded: true });
     }
 
     render() {
         return (
-                <ScrollView style={styles.container}>
-                    {/* Plan your Day */}
-                    <View style={styles.plannerContainer}>
-                        <Text style={styles.nameText}>
-                            Hi {this.state.userName}
+            <ScrollView style={styles.container}>
+                {/* Plan your Day */}
+                <View style={styles.plannerContainer}>
+                    {
+                        this.state.fontLoaded ? (
+                            <Text style={styles.nameText}>
+                                Hi {this.state.userName}
+                            </Text>
+                        ) : null
+                    }
+                    {
+                        this.state.fontLoaded ? (
+                            <Text style={styles.placeText}>
+                                Explore {this.state.cityName}.
                         </Text>
-                        <Text style={styles.placeText}>
-                            Explore {this.state.cityName}, {this.state.regionCode}
+                        ) : null
+                    }
+                    <View style={styles.planningButton}>
+                        {
+                            this.state.fontLoaded ? (
+                                <Button
+                                    onPress={() => this.props.navigation.navigate('Option', { categories: PLANNER, current_index: 0, planner_keys: PLANNER_KEYS })}
+                                    title="Start Planning"
+                                    titleStyle={{ fontFamily: 'segoe' }}
+                                    containerViewStyle={{ alignItems: 'center', justifyContent: 'center' }}
+                                    buttonStyle={{
+                                        borderWidth: 3,
+                                        borderColor: 'rgba(255, 255, 255, 0.5);',
+                                        backgroundColor: 'transparent',
+                                        width: 180,
+                                        height: 50,
+                                        borderRadius: 25
+                                    }}
+                                />
+                            ) : null
+                        }
+
+                    </View>
+                </View>
+
+                {/* Specific Plans */}
+                {
+                    this.state.fontLoaded ? (
+                        <Text style={styles.greetingText}>
+                            Popular
                         </Text>
+                    ) : null
+                }
+                
 
-                        <View style={styles.planningButton}>
-                            <Button
-                                onPress={() => this.props.navigation.navigate('Option', { categories: PLANNER, current_index: 0, planner_keys: PLANNER_KEYS })}
-                                title="Start Planning"
-                                titleStyle={{ fontWeight: "700" }}
-                                containerViewStyle={{ alignItems: 'center' }}
-                                buttonStyle={{
-                                    borderWidth: 3,
-                                    borderColor: 'rgba(255, 255, 255, 0.5);', 
-                                    backgroundColor: 'transparent',
-                                    width: 180,
-                                    height: 50,
-                                    borderRadius: 25
-                                }}
-                            />
-                        </View>
-                    </View>
-
-                    {/* Specific Plans */}
-
-                    <Text style={styles.greetingText}>
-                        Popular
-                </Text>
-
-                    {/* <View style={styles.planningButton}>
-                    <Button
-                        onPress={() => this.props.navigation.navigate('OptionDetail')}
-                        title="Start Planning"
-                        titleStyle={{ fontWeight: "700" }}
-                        buttonStyle={{
-                            backgroundColor: "rgba(92, 99,216, 1)",
-                            width: 320,
-                            height: 45,
-                            borderColor: "transparent",
-                            borderWidth: 0,
-                            borderRadius: 5
-                        }}
-                    />
-                </View> */}
-
-                    <View style={styles.smallRow}>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Theatre" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/theatre.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Food" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/food.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Beach" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/beach.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Museum" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/museum.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Arts" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/arts.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Bar" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/bar.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Clothing" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/clothing.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Coffee" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/coffee.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Events" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/events.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Hotel" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/hotel.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Spiritual" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/spiritual.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.thumbnailImageContainer}
-                            onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Sports" })}>
-                            <Image
-                                style={styles.thumbnailImage}
-                                source={require('../../images/sports.png')}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
+                <View style={styles.smallRow}>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Theatre" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/theatre.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Food" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/food.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Beach" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/beach.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Museum" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/museum.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Arts" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/arts.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Bar" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/bar.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Clothing" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/clothing.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Coffee" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/coffee.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Events" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/events.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Hotel" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/hotel.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Spiritual" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/spiritual.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.thumbnailImageContainer}
+                        onPress={() => this.props.navigation.navigate('Option', { categories: CATEGORIES, category_key: "Sports" })}>
+                        <Image
+                            style={styles.thumbnailImage}
+                            source={require('../../images/sports.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -374,12 +378,12 @@ const styles = StyleSheet.create({
     },
     plannerContainer: {
         height: 600,
-        justifyContent:'center',
+        justifyContent: 'center',
         backgroundColor: '#307983'
     },
     placeText: {
+        fontFamily: 'futura',
         fontSize: 40,
-        fontWeight: '700',
         textAlignVertical: "center",
         textAlign: "left",
         marginLeft: 30,
@@ -387,15 +391,16 @@ const styles = StyleSheet.create({
     },
 
     nameText: {
+        fontFamily: 'segoe',
         color: 'white',
         fontSize: 40,
-        fontWeight: '300',
         textAlignVertical: "center",
         textAlign: "left",
         marginLeft: 30,
         marginTop: 30
     },
     greetingText: {
+        fontFamily: 'segoe',
         fontSize: 25,
         textAlignVertical: "center",
         textAlign: "left",
