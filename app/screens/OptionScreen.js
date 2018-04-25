@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, Keyboard, SafeAreaView } from 'react-native';
-import { LinearGradient } from 'expo';
+import { LinearGradient, Font } from 'expo';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { Header, Button, Input } from 'react-native-elements';
 
@@ -29,11 +29,11 @@ export default class OptionScreen extends React.Component {
             current_index: this.props.navigation.state.params && this.props.navigation.state.params.current_index,
             latitude: '',
             longitude: '',
+            fontLoaded: false
         };
     }
 
-
-    componentDidMount() {
+    async componentDidMount() {
         var url = 'https://freegeoip.net/json/';
         fetch(url)
             .then((response) => response.json())
@@ -47,6 +47,12 @@ export default class OptionScreen extends React.Component {
             .catch((error) => {
                 //console.error(error);
             });
+
+        await Font.loadAsync({
+            'segoe': require('../../assets/segoeuisl.ttf'),
+            'futura': require('../../assets/Futura.ttf'),
+        });
+        this.setState({ fontLoaded: true });
     }
 
     getCatergoryData() {
@@ -77,10 +83,10 @@ export default class OptionScreen extends React.Component {
                     //     colors: ['#80d0c7', '#80d0c7'],
                     // }}
                     buttonStyle={{
-                        backgroundColor: 'green',
-                        width: 100,
-                        height: 46,
-                        borderRadius: 23
+                        backgroundColor: '#1ABC9C',
+                        width: 150,
+                        height: 40.5,
+                        borderRadius: 5
                     }}
                 />
             )
@@ -101,10 +107,10 @@ export default class OptionScreen extends React.Component {
                     //     colors: ['#80d0c7', '#80d0c7'],
                     // }}
                     buttonStyle={{
-                        backgroundColor: 'orange',
-                        width: 100,
-                        height: 46,
-                        borderRadius: 23
+                        backgroundColor: '#1ABC9C',
+                        width: 150,
+                        height: 40.5,
+                        borderRadius: 5
                     }}
                 />
             )
@@ -119,10 +125,10 @@ export default class OptionScreen extends React.Component {
                     //     colors: ['#80d0c7', '#80d0c7'],
                     // }}
                     buttonStyle={{
-                        backgroundColor: 'orange',
-                        width: 100,
-                        height: 46,
-                        borderRadius: 23
+                        backgroundColor: '#1ABC9C',
+                        width: 150,
+                        height: 40.5,
+                        borderRadius: 5
                     }}
                 />
             )
@@ -138,21 +144,30 @@ export default class OptionScreen extends React.Component {
             <ScrollView style={styles.container}>
                 <View style={styles.container}>
                     <View style={styles.textContainer}>
-                        <Text style={styles.titleText}>
-                            {category_key ? category_key : planner_keys[current_index]}
-                    </Text>
+                        {
+                            this.state.fontLoaded ? (
+                                <Text style={styles.titleText}>
+                                    {category_key ? category_key : planner_keys[current_index]}
+                                </Text>
+                            ) : null
+                        }
                     </View>
                     <View style={styles.buttonRow}>
-                        <TagSelect
-                            data={data}
-                            itemStyle={styles.item}
-                            itemLabelStyle={styles.label}
-                            itemStyleSelected={styles.itemSelected}
-                            itemLabelStyleSelected={styles.labelSelected}
-                            ref={(tag) => {
-                                this.tag = tag;
-                            }}
-                        />
+                        {
+                            this.state.fontLoaded ? (
+                                <TagSelect
+                                    data={data}
+                                    itemStyle={styles.item}
+                                    itemLabelStyle={styles.label}
+                                    itemStyleSelected={styles.itemSelected}
+                                    itemLabelStyleSelected={styles.labelSelected}
+                                    ref={(tag) => {
+                                        this.tag = tag;
+                                    }}
+                                />
+                            ) : null
+                        }
+                        
                     </View>
                     <View style={styles.planningContainer}>
                         <Button
@@ -164,10 +179,10 @@ export default class OptionScreen extends React.Component {
                             //     colors: ['#80d0c7', '#80d0c7'],
                             // }}
                             buttonStyle={{
-                                backgroundColor:'blue',
-                                width: 100,
-                                height: 46,
-                                borderRadius: 23
+                                backgroundColor:'#1ABC9C',
+                                width: 150,
+                                height: 40.5,
+                                borderRadius: 5
                             }}
                         />
                         {this.renderNextButton()}
@@ -187,8 +202,10 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     titleText: {
-        fontWeight: '700',
+        fontFamily: 'segoe',
+        color: '#307983',
         fontSize: 50,
+        fontWeight: '700'
     },
     textContainer: {
         justifyContent: 'flex-start',
@@ -201,23 +218,23 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     item: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 100,
-        height: 46,
-        borderRadius: 23,
-        flexWrap: 'wrap'
+        height: 45,
+        backgroundColor: 'transparent',
+        borderWidth: 1.2,
+        borderColor: '#307983',
+        borderRadius: 10,
+        flexWrap: 'wrap',
+        paddingLeft: 22,
+        paddingRight: 22,
     },
     label: {
-        fontSize: 18,
-        flexWrap: 'wrap'
+        fontFamily: 'segoe',
+        color: '#307983',
+        fontSize: 15,
     },
     itemSelected: {
-        backgroundColor: '#80d0c7',
+        backgroundColor: '#307983',
         borderColor: 'transparent'
     },
-    labelSelected: {
-        fontWeight: 'bold'
-    }
 
 })
