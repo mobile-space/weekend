@@ -262,11 +262,12 @@ export default class CardScreen extends React.Component {
                     placement="left"
                     leftComponent={
                         <TouchableOpacity
+                            style={styles.closeIcon}
                             onPress={() => { this.props.navigation.goBack() }}>
                             <EvilIcons name="close" size={40} color="white" />
                         </TouchableOpacity>
                     }
-                    outerContainerStyles={{ backgroundColor: 'transparent', borderBottomWidth: 0 }}
+                    outerContainerStyles={{ backgroundColor: 'transparent', height:100, borderBottomWidth: 0 }}
                 />
                 <Carousel
                     layout={'default'}
@@ -435,5 +436,8 @@ const styles = StyleSheet.create({
         right: 10,
         width: 50,
         height: 50
+    },
+    closeIcon: {
+        marginTop: 30,
     }
 })
