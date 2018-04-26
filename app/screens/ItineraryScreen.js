@@ -14,12 +14,11 @@ import BasicFlatList from '../components/BasicFlatList';
 import Share, { ShareSheet, Button } from 'react-native-share';
 import openMap from 'react-native-open-maps';
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
-import flagBlueImg from '../../assets/flag-blue.png';
-import flagPinkImg from '../../assets/flag-pink.png';
+import markerIcon from '../../assets/marker.png';
 
 const leftContent = <Text>Pull to activate</Text>;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
+const LATITUDE = 37.722135;
+const LONGITUDE = -122.478177;
 const SPACE = 0.01;
 
 
@@ -37,15 +36,17 @@ export default class ItineraryScreen extends React.Component {
             screen: 'null',
             visible: false,
             mapRegion: {
-                latitude: 37.78825,
-                longitude: -122.4324,
+                latitude: 37.722135,
+                longitude: -122.478177,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             },
             coordinate: {
-                latitude: 37.78825,
-                longitude: -122.4324,
+                latitude: 37.722135,
+                longitude: -122.478177,
             },
+            latitude: '',
+            longitude: '',
             cityName: '',
             fontLoaded: false
         };
@@ -72,6 +73,8 @@ export default class ItineraryScreen extends React.Component {
                 //console.log(responseJson);
                 this.setState({
                     cityName: responseJson.city,
+                    latitude: responseJson.latitude,
+                    longitude: responseJson.longitude
                 });
             })
             .catch((error) => {
@@ -107,13 +110,14 @@ export default class ItineraryScreen extends React.Component {
                         placement="left"
                         leftComponent={
                             <TouchableOpacity
+                                style={styles.closeIcon}
                                 onPress={() => { this.props.navigation.goBack() }}
 
                             >
                                 <EvilIcons name="close" size={40} color="white" />
                             </TouchableOpacity>
                         }
-                        outerContainerStyles={{ backgroundColor: '#307983', borderBottomWidth: 0, marginTop: -7, }}
+                        outerContainerStyles={{ backgroundColor: '#307983', height: 100, borderBottomWidth: 0 }}
                     />
                     <View style={styles.topContainer}>
                         <View style={{ marginTop: 40 }}>
@@ -147,10 +151,7 @@ export default class ItineraryScreen extends React.Component {
                             }}
                             centerOffset={{ x: -18, y: -60 }}
                             anchor={{ x: 0.69, y: 1 }}
-                            image={this.state.marker1 ? flagBlueImg : flagPinkImg}
                         >
-
-                            <Text style={styles.marker}>First marker</Text>
                         </Marker>
                     </MapView>
                     {
@@ -162,33 +163,6 @@ export default class ItineraryScreen extends React.Component {
                     <View>
                         <BasicFlatList></BasicFlatList>
                     </View>
-
-                    <View>
-                        <BasicFlatList></BasicFlatList>
-                    </View>
-
-                    <View>
-                        <BasicFlatList></BasicFlatList>
-                    </View>
-
-                    <View>
-                        <BasicFlatList></BasicFlatList>
-                    </View>
-
-                    <View>
-                        <BasicFlatList></BasicFlatList>
-                    </View>
-
-                    <TouchableOpacity
-                        style={styles.buttonContainer}
-                        onPress={this.onOpen.bind(this)}>
-                        <View style={styles.instructions}>
-                            <Text style={styles.shareButton}>Share</Text>
-                        </View>
-                    </TouchableOpacity>
-
-
-
                     <ShareSheet visible={this.state.visible} onCancel={this.onCancel.bind(this)}>
                         <Button iconSrc={{ uri: TWITTER_ICON }}
                             onPress={() => {
@@ -259,6 +233,13 @@ export default class ItineraryScreen extends React.Component {
                             }}>More</Button>
                     </ShareSheet>
                 </ScrollView>
+                <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={this.onOpen.bind(this)}>
+                    <View style={styles.instructions}>
+                        <Text style={styles.shareButton}>Share</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -343,6 +324,9 @@ const styles = StyleSheet.create({
         marginTop: 33,
         fontWeight: 'bold',
     },
+    markerIconStyle: {
+        height: 20,
+    },
     greetingText: {
         fontFamily:'segoe',
         fontSize: 25,
@@ -351,6 +335,9 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginTop: 30
     },
+    closeIcon: {
+        marginTop: 30,
+    }
 })
 
 //  twitter icon

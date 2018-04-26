@@ -72,11 +72,8 @@ class FlatListItem extends Component {
         return (
             <Swipeout {...swipeSettings}>
                 <View style={{
+                    paddingBottom: 50,
                     backgroundColor: 'white',
-                    // borderTopLeftRadius: 50,
-                    // borderBottomLeftRadius: 50,
-                    // borderTopRightRadius: 10,
-                    // borderBottomRightRadius: 10
                 }}>
                 <Card
                     image={{uri : this.props.item.imageUrl}}
