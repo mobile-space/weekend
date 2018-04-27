@@ -21,7 +21,7 @@ class FlatListItem extends Component {
     }
 
     _goToLocation() {
-        openMap({ latitude: 37.865101, longitude: -119.538330 });
+        openMap({ latitude: 37.7616095, longitude: -122.4955283 });
     }
 
     render() {
@@ -61,7 +61,7 @@ class FlatListItem extends Component {
             left: [
                 {
                     onPress: () => {
-                        openMap({ latitude: 37.865101, longitude: -119.538330 });
+                        openMap({ latitude: 37.7616095, longitude: -122.4955283 });
                     },
                     text: 'Navigate', type: 'primary'
                 }

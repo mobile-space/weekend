@@ -153,6 +153,42 @@ export default class ItineraryScreen extends React.Component {
                             anchor={{ x: 0.69, y: 1 }}
                         >
                         </Marker>
+                        <Marker
+                            coordinate={{
+                                latitude: 37.7616095,
+                                longitude: -122.4955283,
+                            }}
+                            centerOffset={{ x: -18, y: -60 }}
+                            anchor={{ x: 0.69, y: 1 }}
+                        >
+                        </Marker>
+                        {/* <Marker
+                            coordinate={{
+                                latitude: 37.7602416,
+                                longitude: -122.5750672,
+                            }}
+                            centerOffset={{ x: -18, y: -60 }}
+                            anchor={{ x: 0.69, y: 1 }}
+                        >
+                        </Marker> */}
+                        <Marker
+                            coordinate={{
+                                latitude: 37.7620126,
+                                longitude: -122.5047991,
+                            }}
+                            centerOffset={{ x: -18, y: -60 }}
+                            anchor={{ x: 0.69, y: 1 }}
+                        >
+                        </Marker>
+                        {/* <Marker
+                            coordinate={{
+                                latitude: 37.742882,
+                                longitude: -122.5463891,
+                            }}
+                            centerOffset={{ x: -18, y: -60 }}
+                            anchor={{ x: 0.69, y: 1 }}
+                        >
+                        </Marker> */}
                     </MapView>
                     {
                         this.state.fontLoaded ? (
