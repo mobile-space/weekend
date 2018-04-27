@@ -61,7 +61,7 @@ class FlatListItem extends Component {
             left: [
                 {
                     onPress: () => {
-                        openMap({ latitude: 37.7616095, longitude: -122.4955283 });
+                        openMap({ latitude: 37.760707, longitude: -122.435653 });
                     },
                     text: 'Navigate', type: 'primary'
                 }
