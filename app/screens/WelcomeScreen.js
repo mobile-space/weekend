@@ -153,7 +153,21 @@ const PLANNER = {
         { "id": 2, "label": "American", "category_id": "4bf58dd8d48988d14e941735" },
         { "id": 3, "label": "Asian", "category_id": "4bf58dd8d48988d142941735" },
         { "id": 4, "label": "BBQ", "category_id": "4bf58dd8d48988d1df931735" },
-        { "id": 5, "label": "Buffet", "category_id": "52e81612bcbc57f1066b79f4" }
+        { "id": 5, "label": "Buffet", "category_id": "52e81612bcbc57f1066b79f4" },
+        { "id": 6, "label": "African", "category_id": "4bf58dd8d48988d1c8941735" },
+        { "id": 7, "label": "Cambodian", "category_id": "52e81612bcbc57f1066b7a03" },
+        { "id": 8, "label": "Chinese", "category_id": "4bf58dd8d48988d145941735" },
+        { "id": 9, "label": "Indonesian", "category_id": "4deefc054765f83613cdba6f" },
+        { "id": 10, "label": "Japanese", "category_id": "4bf58dd8d48988d111941735" },
+        { "id": 11, "label": "Korean", "category_id": "4bf58dd8d48988d113941735" },
+        { "id": 12, "label": "Noodle house", "category_id": "4bf58dd8d48988d1d1941735" },
+        { "id": 13, "label": "Thai", "category_id": "4bf58dd8d48988d149941735" },
+        { "id": 14, "label": "Deli", "category_id": "4bf58dd8d48988d146941735" },
+        { "id": 15, "label": "Fast Food", "category_id": "4bf58dd8d48988d16e941735" },
+        { "id": 16, "label": "Halal", "category_id": "52e81612bcbc57f1066b79ff" },
+        { "id": 17, "label": "Indian", "category_id": "4bf58dd8d48988d10f941735" },
+        { "id": 18, "label": "Italian", "category_id": "4bf58dd8d48988d110941735" },
+        { "id": 19, "label": "Mexican", "category_id": "4bf58dd8d48988d1c1941735" },
     ],
     "Evening Attractions": [
         { "id": 1, "label": "aquarium", "category_id": "4fceea171983d5d06c3e9823" },
@@ -176,7 +190,21 @@ const PLANNER = {
         { "id": 2, "label": "American", "category_id": "4bf58dd8d48988d14e941735" },
         { "id": 3, "label": "Asian", "category_id": "4bf58dd8d48988d142941735" },
         { "id": 4, "label": "BBQ", "category_id": "4bf58dd8d48988d1df931735" },
-        { "id": 5, "label": "Buffet", "category_id": "52e81612bcbc57f1066b79f4" }
+        { "id": 5, "label": "Buffet", "category_id": "52e81612bcbc57f1066b79f4" },
+        { "id": 6, "label": "African", "category_id": "4bf58dd8d48988d1c8941735" },
+        { "id": 7, "label": "Cambodian", "category_id": "52e81612bcbc57f1066b7a03" },
+        { "id": 8, "label": "Chinese", "category_id": "4bf58dd8d48988d145941735" },
+        { "id": 9, "label": "Indonesian", "category_id": "4deefc054765f83613cdba6f" },
+        { "id": 10, "label": "Japanese", "category_id": "4bf58dd8d48988d111941735" },
+        { "id": 11, "label": "Korean", "category_id": "4bf58dd8d48988d113941735" },
+        { "id": 12, "label": "Noodle house", "category_id": "4bf58dd8d48988d1d1941735" },
+        { "id": 13, "label": "Thai", "category_id": "4bf58dd8d48988d149941735" },
+        { "id": 14, "label": "Deli", "category_id": "4bf58dd8d48988d146941735" },
+        { "id": 15, "label": "Fast Food", "category_id": "4bf58dd8d48988d16e941735" },
+        { "id": 16, "label": "Halal", "category_id": "52e81612bcbc57f1066b79ff" },
+        { "id": 17, "label": "Indian", "category_id": "4bf58dd8d48988d10f941735" },
+        { "id": 18, "label": "Italian", "category_id": "4bf58dd8d48988d110941735" },
+        { "id": 19, "label": "Mexican", "category_id": "4bf58dd8d48988d1c1941735" },
     ]
 }
 
@@ -221,7 +249,14 @@ export default class WelcomeScreen extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 {/* Plan your Day */}
-                <View style={styles.plannerContainer}>
+                <View style={styles.plannerOuterContainer}>
+                    <View style={{ flex: 1, alignItems:'center', top: 80, left: 30, position: 'absolute',}}>
+                    <Image
+                        style={{height: 80, width: 80, resizeMode: 'contain'}}
+                        source={require('../../assets/logo1.png')}
+                    />
+                    </View>
+                    <View style={styles.plannerInnerContainer}>
                     {
                         this.state.fontLoaded ? (
                             <Text style={styles.nameText}>
@@ -250,12 +285,14 @@ export default class WelcomeScreen extends React.Component {
                                         backgroundColor: 'transparent',
                                         width: 180,
                                         height: 50,
+                                        shadowOpacity: 0,
                                         borderRadius: 25
                                     }}
                                 />
                             ) : null
                         }
 
+                    </View>
                     </View>
                 </View>
 
@@ -376,10 +413,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
-    plannerContainer: {
+    plannerOuterContainer: {
         height: 600,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         backgroundColor: '#307983'
+    },
+    plannerInnerContainer: {
+        marginTop: 220
     },
     placeText: {
         fontFamily: 'futura',

@@ -172,7 +172,7 @@ export default class OptionScreen extends React.Component {
                     <View style={styles.planningContainer}>
                         <Button
                             onPress={() => this.props.navigation.navigate('Card', { category_id: this.tag.itemsSelected, latitude: this.state.latitude, longitude: this.state.longitude })}
-                            title="Select"
+                            title="Explore"
                             titleStyle={{ fontWeight: "700" }}
                             containerViewStyle={{ marginTop: 300, alignItems: 'center' }}
                             // linearGradientProps={{
