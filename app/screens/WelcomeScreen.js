@@ -9,27 +9,27 @@ import { Constants, Location, Permissions } from 'expo';
 
 const CATEGORIES = {
     'Food': [
-        { id: 1, label: 'hotpot', category_id: '52af0bd33cf9994f4e043bdd' },
-        { id: 2, label: 'sushi', category_id: '4bf58dd8d48988d1d2941735' },
-        { id: 3, label: 'pancakes', category_id: '4bf58dd8d48988d143941735' },
-        { id: 4, label: 'burger', category_id: '4bf58dd8d48988d16c941735' },
-        { id: 5, label: 'pizza', category_id: '4bf58dd8d48988d1ca941735' }
+        { id: 1, label: 'Hotpot', category_id: '52af0bd33cf9994f4e043bdd' },
+        { id: 2, label: 'Sushi', category_id: '4bf58dd8d48988d1d2941735' },
+        { id: 3, label: 'Pancakes', category_id: '4bf58dd8d48988d143941735' },
+        { id: 4, label: 'Burger', category_id: '4bf58dd8d48988d16c941735' },
+        { id: 5, label: 'Pizza', category_id: '4bf58dd8d48988d1ca941735' }
     ],
     'Beach': [
-        { id: 1, label: 'nudist', category_id: '52e81612bcbc57f1066b7a30' },
-        { id: 2, label: 'surf', category_id: '4bf58dd8d48988d1e3941735' }
+        { id: 1, label: 'Nudist', category_id: '52e81612bcbc57f1066b7a30' },
+        { id: 2, label: 'Surf', category_id: '4bf58dd8d48988d1e3941735' }
     ],
     'Theatre': [
-        { id: 1, label: 'drive-in', category_id: '56aa371be4b08b9a8d5734de' },
-        { id: 2, label: 'indie', category_id: '4bf58dd8d48988d17e941735' },
-        { id: 3, label: 'multiplex', category_id: '4bf58dd8d48988d180941735' }
+        { id: 1, label: 'Drive-in', category_id: '56aa371be4b08b9a8d5734de' },
+        { id: 2, label: 'Indie', category_id: '4bf58dd8d48988d17e941735' },
+        { id: 3, label: 'Multiplex', category_id: '4bf58dd8d48988d180941735' }
     ],
     'Museum': [
-        { id: 1, label: 'art', category_id: '4bf58dd8d48988d18f941735' },
-        { id: 2, label: 'erotic', category_id: '559acbe0498e472f1a53fa23' },
-        { id: 3, label: 'history', category_id: '4bf58dd8d48988d190941735' },
+        { id: 1, label: 'Art', category_id: '4bf58dd8d48988d18f941735' },
+        { id: 2, label: 'Erotic', category_id: '559acbe0498e472f1a53fa23' },
+        { id: 3, label: 'History', category_id: '4bf58dd8d48988d190941735' },
         { id: 4, label: 'Planetarium', category_id: '4bf58dd8d48988d192941735' },
-        { id: 5, label: 'science', category_id: '4bf58dd8d48988d191941735' }
+        { id: 5, label: 'Science', category_id: '4bf58dd8d48988d191941735' }
     ],
     'Arts': [
         { id: 1, label: 'Dance studio', category_id: '4bf58dd8d48988d134941735' },
@@ -103,7 +103,7 @@ const CATEGORIES = {
         { id: 3, label: 'Basketball', category_id: '4bf58dd8d48988d1e1941735' },
         { id: 4, label: 'Bowling', category_id: '52e81612bcbc57f1066b7a2f' },
         { id: 5, label: 'Golf Course', category_id: '4bf58dd8d48988d1e6941735' },
-        { id: 6, label: 'Gym / Fitness Center', category_id: '4bf58dd8d48988d175941735' },
+        { id: 6, label: 'Gym', category_id: '4bf58dd8d48988d175941735' },
         { id: 7, label: 'Hockey', category_id: '56aa371be4b08b9a8d57352c' },
         { id: 8, label: 'Paintball', category_id: '5032829591d4c4b30a586d5e' },
         { id: 9, label: 'Rugby', category_id: '52e81612bcbc57f1066b7a2c' },
@@ -125,17 +125,17 @@ const PLANNER_KEYS = [
 
 const PLANNER = {
     "Breakfast": [
-        { "id": 1, "label": "bakery", "category_id": "4bf58dd8d48988d16a941735" },
-        { "id": 2, "label": "bagel", "category_id": "4bf58dd8d48988d179941735" },
-        { "id": 3, "label": "cafe", "category_id": "4bf58dd8d48988d16d941735" },
+        { "id": 1, "label": "Bakery", "category_id": "4bf58dd8d48988d16a941735" },
+        { "id": 2, "label": "Bagel", "category_id": "4bf58dd8d48988d179941735" },
+        { "id": 3, "label": "Cafe", "category_id": "4bf58dd8d48988d16d941735" },
         { "id": 4, "label": "Coffee", "category_id": "4bf58dd8d48988d1e0931735" },
         { "id": 5, "label": "Donut", "category_id": "4bf58dd8d48988d148941735" },
-        { "id": 6, "label": "Tea room", "category_id": "4bf58dd8d48988d1dc931735" }
+        { "id": 6, "label": "Tea", "category_id": "4bf58dd8d48988d1dc931735" }
     ],
     "Morning Attractions": [
-        { "id": 1, "label": "aquarium", "category_id": "4fceea171983d5d06c3e9823" },
-        { "id": 2, "label": "art gallery", "category_id": "4bf58dd8d48988d1e2931735" },
-        { "id": 3, "label": "Go kart", "category_id": "52e81612bcbc57f1066b79ea" },
+        { "id": 1, "label": "Aquarium", "category_id": "4fceea171983d5d06c3e9823" },
+        { "id": 2, "label": "Art gallery", "category_id": "4bf58dd8d48988d1e2931735" },
+        { "id": 3, "label": "Go Kart", "category_id": "52e81612bcbc57f1066b79ea" },
         { "id": 4, "label": "Historic site", "category_id": "4deefb944765f83613cdba6e" },
         { "id": 5, "label": "Movie theater", "category_id": "4bf58dd8d48988d17f941735" },
         { "id": 6, "label": "Museum", "category_id": "4bf58dd8d48988d181941735" },
@@ -170,8 +170,8 @@ const PLANNER = {
         { "id": 19, "label": "Mexican", "category_id": "4bf58dd8d48988d1c1941735" },
     ],
     "Evening Attractions": [
-        { "id": 1, "label": "aquarium", "category_id": "4fceea171983d5d06c3e9823" },
-        { "id": 2, "label": "art gallery", "category_id": "4bf58dd8d48988d1e2931735" },
+        { "id": 1, "label": "Aquarium", "category_id": "4fceea171983d5d06c3e9823" },
+        { "id": 2, "label": "Art gallery", "category_id": "4bf58dd8d48988d1e2931735" },
         { "id": 3, "label": "Go kart", "category_id": "52e81612bcbc57f1066b79ea" },
         { "id": 4, "label": "Historic site", "category_id": "4deefb944765f83613cdba6e" },
         { "id": 5, "label": "Movie theater", "category_id": "4bf58dd8d48988d17f941735" },

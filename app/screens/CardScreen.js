@@ -8,6 +8,7 @@ import { Icon, Header, Card, ListItem, Button  } from 'react-native-elements'
 import { EvilIcons, MaterialIcons } from '@expo/vector-icons';
 import Animation from 'lottie-react-native';
 import LottieAnimation from 'easy-lottie-react-native';
+import FavSlide from './FavSlide';
 
 const { width, height } = Dimensions.get('window');
 // const sliderWidth = width;
@@ -191,18 +192,7 @@ export default class CardScreen extends React.Component {
                         source={{ uri: `${featured_photo_prefix}500x500${featured_photo_suffix}` || '' }}
                     />
                     <View style={styles.infoContainer}>
-                        <TouchableOpacity
-                            style={styles.animationContainer}
-                            onPress={this.lottieOnPressStart.bind(this)}>
-                            <Animation
-                                style={{
-                                    height: 50,
-                                    width: 50,
-                                }}
-                                source={require('../../assets/heartbutton.json')}
-                                progress={this.state.progress}
-                            />
-                        </TouchableOpacity>
+                        <FavSlide/>
                         <View style={styles.textContainer}>
                             <View style={styles.nameContainer}>
                                 <Text style={styles.titleText}>{name}</Text>
@@ -253,7 +243,7 @@ export default class CardScreen extends React.Component {
     }
     render() {
         const { posts } = this.state;
-        console.log(this.state.progress);
+        // console.log(this.state.progress);
         return (
             <LinearGradient
                 colors={['#80d0c7', '#13547a']}

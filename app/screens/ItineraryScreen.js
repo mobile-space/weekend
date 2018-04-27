@@ -199,7 +199,16 @@ export default class ItineraryScreen extends React.Component {
                     <View>
                         <BasicFlatList></BasicFlatList>
                     </View>
-                    <ShareSheet visible={this.state.visible} onCancel={this.onCancel.bind(this)}>
+                    
+                </ScrollView>
+                <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={this.onOpen.bind(this)}>
+                    <View style={styles.instructions}>
+                        <Text style={styles.shareButton}>Share</Text>
+                    </View>
+                </TouchableOpacity>
+                <ShareSheet visible={this.state.visible} onCancel={this.onCancel.bind(this)}>
                         <Button iconSrc={{ uri: TWITTER_ICON }}
                             onPress={() => {
                                 this.onCancel();
@@ -268,14 +277,6 @@ export default class ItineraryScreen extends React.Component {
                                 }, 300);
                             }}>More</Button>
                     </ShareSheet>
-                </ScrollView>
-                <TouchableOpacity
-                    style={styles.buttonContainer}
-                    onPress={this.onOpen.bind(this)}>
-                    <View style={styles.instructions}>
-                        <Text style={styles.shareButton}>Share</Text>
-                    </View>
-                </TouchableOpacity>
             </View>
         );
     }
