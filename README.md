@@ -2,7 +2,6 @@
 <a href="https://github.com/mobile-space/layovr">
 <img alt="layovr" src="assets/new-logo.png" width="250">
 </a>
-
 </p>
 
 <p align="center">
@@ -44,6 +43,18 @@ Wireframes
 <img src="assets/4.png" width="270" />
 </div>
 
+## High Fidelity Prototypes
+<div style={{display: flex; flex-direction: row}}>
+<img src="assets/prototypes/1.png" width="270" />
+<img src="assets/prototypes/2.png" width="270" />
+<img src="assets/prototypes/3.png" width="270" />
+</div>
+<div style={{display: flex; flex-direction: row}}>
+<img src="assets/prototypes/4.png" width="270" />
+<img src="assets/prototypes/5.png" width="270" />
+<img src="assets/prototypes/6.png" width="270" />
+</div>
+
 ## TODO
 
 - [x] <b>Design</b>
@@ -62,5 +73,8 @@ Wireframes
     - [x] Navigation Tree Structure  
     - [x] Build Empty Screens  
     
+## Team Members
 
+- [Bhavesh Chowdhury](https://github.com/bhaveshc789) 
+- [Girish Rawat](https://github.com/GirishRawat) 
 
