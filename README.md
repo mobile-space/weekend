@@ -35,6 +35,15 @@ Wireframes
 - [x] User should be able to save the places that they like to an itinerary 
 - [x] User should be able to navigate to the spots saved
 
+## Onboarding Screens
+
+<div style={{display: flex; flex-direction: row}}>
+<img src="assets/wireframes/onboarding/1.png" width="270" />
+<img src="assets/wireframes/onboarding/2.png" width="270" />
+<img src="assets/wireframes/onboarding/3.png" width="270" />
+<img src="assets/wireframes/onboarding/4.png" width="270" />
+</div>
+
 ## TODO
 
 - [x] <b>Design</b>
