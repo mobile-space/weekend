@@ -4,10 +4,6 @@
   </a>
 </p>
 
-<h2 align="center">
-  Weekend 
-</h2>
-
 <p align="center">
   Layovr helps you find interesting spots near you.
 </p>
