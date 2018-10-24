@@ -2,10 +2,7 @@
   <a href="https://github.com/mobile-space/layovr">
     <img alt="layovr" src="assets/new-logo.png" width="250">
   </a>
-</p>
-
-<p align="center">
-  Layovr helps you find interesting spots near you.
+  The weekend app helps you find interesting spots near you for planning your weekend.
 </p>
 
 <p align="center">
