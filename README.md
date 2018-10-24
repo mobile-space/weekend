@@ -5,7 +5,7 @@
 </p>
 
 <h2 align="center">
-  Layovr Mobile App
+  Weekender 
 </h2>
 
 <p align="center">
