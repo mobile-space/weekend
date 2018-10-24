@@ -2,6 +2,10 @@
   <a href="https://github.com/mobile-space/layovr">
     <img alt="layovr" src="assets/new-logo.png" width="250">
   </a>
+  
+</p>
+
+<p align="center">
   The weekend app helps you find interesting spots near you for planning your weekend.
 </p>
 
