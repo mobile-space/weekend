@@ -28,6 +28,7 @@ Wireframes
 </div>
 
 ## User Stories
+
 - [x] User should be able to look for food, drinks, cafes, shops and outdoor attractions
 - [x] User should be able to swipe through interesting places
 - [x] User should be able to see each place's ratings, reviews and cost 
@@ -37,16 +38,20 @@ Wireframes
 ## TODO
 
 - [x] <b>Design</b>
-- [x] Wireframes - Brainstorm and draw the skeletal structure of the mobile app
-- [x] Research user stories for the app
-- [x] :star: Sketch Prototypes - Make high fidelity prototypes using Sketch
-- [x] :star: Logo - Make a logo
+    - [x] Wireframes 
+        - Brainstorm and draw the skeletal structure of the mobile app
+        - [x] Research user stories for the app
+        - [x] :star: Sketch Prototypes - Make high fidelity prototypes using Sketch
+        - [x] :star: Logo - Make a logo
 
 - <b>API's</b>
-- [Foursquare](https://developer.foursquare.com/) 
-- Google Map 
-- [Facebook OAuth](https://developers.facebook.com/docs/facebook-login/web) 
+    - [Foursquare](https://developer.foursquare.com/) 
+    - Google Map 
+    - [Facebook OAuth](https://developers.facebook.com/docs/facebook-login/web) 
 
 - [x] <b>Navigation </b>
-- [x] Navigation Tree Structure  
-- [x] Build Empty Screens  
+    - [x] Navigation Tree Structure  
+    - [x] Build Empty Screens  
+    
+
+
