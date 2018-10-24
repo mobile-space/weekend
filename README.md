@@ -38,10 +38,10 @@ Wireframes
 ## Onboarding Screens
 
 <div style={{display: flex; flex-direction: row}}>
-<img src="assets/wireframes/onboarding/1.png" width="270" />
-<img src="assets/wireframes/onboarding/2.png" width="270" />
-<img src="assets/wireframes/onboarding/3.png" width="270" />
-<img src="assets/wireframes/onboarding/4.png" width="270" />
+<img src="assets/wireframes/onboarding-s/1.png" width="270" />
+<img src="assets/wireframes/onboarding-s/2.png" width="270" />
+<img src="assets/wireframes/onboarding-s/3.png" width="270" />
+<img src="assets/wireframes/onboarding-s/4.png" width="270" />
 </div>
 
 ## TODO
