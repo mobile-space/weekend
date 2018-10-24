@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/mobile-space/layovr">
-    <img alt="layovr" src="assets/logo.png" width="250">
+    <img alt="layovr" src="assets/new-logo.png" width="250">
   </a>
 </p>
 
